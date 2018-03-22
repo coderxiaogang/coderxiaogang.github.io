@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>algorithm-follower</title>
+  <link rel="shortcut icon" type="image/ico" href="./favicon.ico">
+  <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+<div class="header">
+  <h1>黎小刚同学</h1>
+</div>
+<div class="container index-list">
+  <ul>
+    <li>
+      <a href="./algorithms/insertion-sort.html">插入排序</a>
+    </li>
+    <li>
+      <a href="./algorithms/insertion-sort.html">插入排序</a>
+    </li>
+  </ul>
+</div>
+<div>
+  <pre>
+    <code data-lang="java">
+package clrs.part1.impl;
+
+import java.util.Arrays;
+
+public class InsertionSort {
+    public static void insertionSort(int[] arr) {
+        for (int j = 1; j < arr.length; j++) {
+            int key = arr[j];
+            int i = j - 1;
+            while (i >= 0 && arr[i] > key) {
+                arr[i + 1] = arr[i];
+                i--;
+            }
+            arr[i + 1] = key;
+        }
+    }
+
+    public static void recursiveInsertionSort(int[] arr, int n) {
+        if (n > 0) {
+            recursiveInsertionSort(arr, n - 1);
+            int key = arr[n];
+            int i = n - 1;
+            while (i >= 0 && arr[i] > key) {
+                arr[i + 1] = arr[i];
+                i--;
+            }
+            arr[i + 1] = key;
+        }
+    }
+
+    public static void nonIncreasingInsertionSort(int[] arr) {
+        for (int j = 1; j < arr.length; j++) {
+            int key = arr[j];
+            int i = j - 1;
+            while (i >= 0 && arr[i] < key) {
+                arr[i + 1] = arr[i];
+                i--;
+            }
+            arr[i + 1] = key;
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = new int[]{5, 2, 4, 6, 1, 3};
+        insertionSort(arr);
+        System.out.println(Arrays.toString(arr));
+
+        int[] arr1 = new int[]{5, 2, 4, 6, 1, 3};
+        recursiveInsertionSort(arr1, arr1.length - 1);
+        System.out.println(Arrays.toString(arr1));
+
+        int[] arr2 = new int[]{5, 2, 4, 6, 1, 3};
+        nonIncreasingInsertionSort(arr2);
+        System.out.println(Arrays.toString(arr2));
+    }
+}
+
+/*
+[1, 2, 3, 4, 5, 6]
+[1, 2, 3, 4, 5, 6]
+[6, 5, 4, 3, 2, 1]
+ */
+
+    </code>
+  </pre>
+</div>
+<script src="./lib/jquery/dist/jquery.min.js"></script>
+<script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="./js/index.js"></script>
+</body>
+</html>
