@@ -4,9 +4,7 @@ layout: default
 
 Text can be **bold**, _italic_, or ~~strikethrough~~.
 
-[insertion-sort](insertion-sort.md).
-
-[测试](./_posts/test.md).
+[Link to another page](another-page).
 
 There should be whitespace between paragraphs.
 
