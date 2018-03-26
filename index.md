@@ -10,5 +10,7 @@
 
 * [冒泡排序 (Bubble Sort)](bubble-sort.md). March 26, 2018
 
+* [逆序对 (Inversion)](inversion.md). March 26, 2018
+
 * [最大子数组问题 (Maximum Subarray)](maximum-subarray.md). March 23, 2018
 
