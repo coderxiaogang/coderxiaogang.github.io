@@ -17,8 +17,8 @@
 ```java
 bruteForceMaximumSubarray(int[] arr) {
     int n = arr.length;
-    int start = 0;
-    int end = 0;
+    int left = 0;
+    int right = 0;
     int max = Integer.MIN_VALUE;
     for (int i = 0; i < n; i++) {
         int sum = 0;
@@ -26,8 +26,8 @@ bruteForceMaximumSubarray(int[] arr) {
             sum += arr[j];
             if (sum > max) {
                 max = sum;
-                start = i;
-                end = j;
+                left = i;
+                right = j;
             }
         }
     }
