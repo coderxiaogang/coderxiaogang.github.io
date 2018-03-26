@@ -6,5 +6,7 @@
 
 * [归并排序 (Merge Sort)](merge-sort.md). March 23, 2018
 
+* [二分查找 (Binary Search)](binary-search.md). March 26, 2018
+
 * [最大子数组问题 (Maximum Subarray)](maximum-subarray.md). March 23, 2018
 
