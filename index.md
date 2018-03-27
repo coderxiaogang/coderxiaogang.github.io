@@ -38,3 +38,5 @@
 * [基数排序 (radix sort)](radix-sort.md).
 
 * [桶排序 (bucket sort)](bucket-sort.md).
+
+* [平均排序 (average sort)](average-sort.md).
