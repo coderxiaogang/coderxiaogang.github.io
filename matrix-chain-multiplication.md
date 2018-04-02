@@ -117,26 +117,44 @@ public static int bottomUpMatrixChain(int[] p) {
     }
     return m[1][n];
 }
+
+public static Object[] extendedBottomUpMatrixChain(int[] p) {
+    int n = p.length - 1;
+    int[][] m = new int[n + 1][n + 1];
+    int[][] s = new int[n + 1][n + 1];
+    for (int i = 1; i <= n; i++) {
+        m[i][i] = 0;
+    }
+    for (int len = 2; len <= n; len++) {
+        for (int i = 1; i <= n - len + 1; i++) {
+            int j = i + len - 1;
+            int min = Integer.MAX_VALUE;
+            for (int k = i; k < j; k++) {
+                if (min > m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * p[j]) {
+                    min = m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * p[j];
+                    s[i][j] = k;
+                }
+            }
+            m[i][j] = min;
+        }
+    }
+    return new Object[]{m[1][n], s};
+}
 ```
 
 #### 步骤4：构造最优解
 
+虽然extendedBottomUpMatrixChain求出了计算矩阵链乘积所需的最少标量乘法运算次数，但它并未直接指出如何进行这种最优代价的矩阵链乘法计算。表s记录了构造最优解所需的信息。每个表项s[i][j]记录了一个k值，指出AiAi+1...Aj的最优括号化方案的分割点应在Ak和Ak+1之间。因此，我嫩知道A1..n的最优计算方案中最后一次矩阵乘法运算应该是A1..s[1][n]As[1][n]..n。我们可以用相同的方法递归地求出更早的矩阵乘法的具体计算过程，因为s[1, s[1][n]]指出了计算A1..s[1][n]时应进行的最后一次矩阵乘法运算，s[s[1][n] + 1][n]指出了计算As[1][n] + 1..n时应进行的最后一次矩阵乘法运算。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```java
+public static void printMatrixChain(int[][] s, int i, int j) {
+    if (i == j) {
+        System.out.print("A" + i);
+    } else {
+        System.out.print("(");
+        printMatrixChain(s, i, s[i][j]);
+        printMatrixChain(s, s[i][j] + 1, j);
+        System.out.print(")");
+    }
+}
+```
