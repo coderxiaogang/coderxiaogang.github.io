@@ -1,8 +1,8 @@
 ## Young氏矩阵
 
-在一个m * n的Young氏矩阵中，每一行的数据都是从左到右排序的，每一列的数据都是从上到下排序的。Young氏矩阵也会存在一些值为无穷大(INF)的数据项，表示哪些不存在的元素。因此，Young氏矩阵可以存储r <= m * n个有限的数。
+在一个m * n的Young氏矩阵中，每一行的数据都是从左到右排序的，每一列的数据都是从上到下排序的。Young氏矩阵也会存在一些值为无穷大(INF)的数据项，表示那些不存在的元素。因此，Young氏矩阵可以存储m * n个有限的数。
 
-对于一个m * n的Young氏矩阵Y来说，如果Y[0][0] = INF，则Y为空，如果Y[m][n] < INF，则Y为满（即包含m * n个元素）。
+对于一个m * n的Young氏矩阵Y来说，如果mat[0][0] = INF，则Y为空，如果mat[m][n] < INF，则Y为满（即包含m * n个元素）。
 
 ```java
 public class YoungTableau {
@@ -32,7 +32,7 @@ public class YoungTableau {
 }
 ```
 
-下面是一个在m * n的Young氏矩阵上复杂度为O(m + n)的extractMin算法实现。考虑使用一个递归过程，它使用类似于maxHeapify的方式，把一个规模为m * n的问题分解为规模为(m - 1) * n或者m * (n - 1)的子问题。
+下面是一个在m * n的Young氏矩阵上复杂度为O(m + n)的extractMin算法实现。考虑使用一个递归过程，它使用类似于堆排序中maxHeapify的方式，把一个规模为m * n的问题分解为规模为(m - 1) * n或者m * (n - 1)的子问题。
 
 ```java
 public int extractMin() {
@@ -63,7 +63,7 @@ private void youngify(int i, int j) {
 }
 ```
 
-可以在O(m + n)时间内，将一个新元素插入到一个未满的m * n的杨氏矩阵中。
+可以在O(m + n)时间内，将一个新元素插入到一个未满的m * n的Young氏矩阵中。
 
 ```java
 public void insert(int key) {
