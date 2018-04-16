@@ -163,7 +163,15 @@ public void insert(String key) {
         insertNonFull(r, key);
     }
 }
+```
 
+当根节点为满时，原来的根节点被分裂，一个新的结点s(有两个孩子)称为根。对根进行分裂是增加B树高度的唯一途径，下图说明了这种情况。与二叉搜索树不同，B树高度的增加发生在顶部而不是底部。insert通过调用insertNonFull完成将关键字key插入以非满的根节点为根的树中。insertNonFull在需要时沿树向下递归，在必要时通过调用splitChild来保证任何时刻它所递归处理的结点都是非满的。
+
+![](./assets/images/part3/b-tree4.png)
+
+辅助的递归过程insertNonFull将关键字插入结点x，要求假定在调用该过程时x是非满的。操作insert和递归操作insertNonFull保证了这个假设成立。
+
+```java
 private void insertNonFull(Node node, String key) {
     int i = node.n - 1;
     if (node.isLeaf) {
