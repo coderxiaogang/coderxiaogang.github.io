@@ -23,11 +23,11 @@ LCS的最优子结构：令X = <x[1], x[2], ..., x[m]>和Y = <y[1], y[2], ..., y
 
 我们很容易看出LCS问题的重叠子问题性质。为了求X和Y的一个LCS，我们可能需要求X和Y[n-1]的一个LCS及X[m-1]和Y的一个LCS。但这几个子问题都包含求解X[m-1]和Y[n-1]的LCS的子子问题，很多其它子问题也都共享子子问题。
 
-设计LCS问题的递归算法首先要建立最优解的递归式。我们定义c[i][j]表示Xi和Yj的LCS的长度，如果i = 0或j = 0，即一个序列长度为0，那么LCS的长度为0。根据LCS问题的最优子结构性质，可得如下公式：
+设计LCS问题的递归算法首先要建立最优解的递归式。我们定义c[i][j]表示X[i]和Y[j]的LCS的长度，如果i == 0或j == 0，即一个序列长度为0，那么LCS的长度为0。根据LCS问题的最优子结构性质，可得如下公式：
 
 ![](./assets/images/part4/longest-common-subsequence.png)
 
-观察到在递归公式中，我们通过限制条件限制了需要求解哪些问题。当xi = yi时，我们可以而且应该求解子问题Xi-1和Yj-1的一个LCS。否则，应该求解两个子问题：Xi和Yj-1的一个LCS及Xi-1和Y的一个LCS。
+观察到在递归公式中，我们通过限制条件限制了需要求解哪些问题。当x[i] == y[j]时，我们可以而且应该求解子问题X[i-1]和Y[j-1]的一个LCS。否则，应该求解两个子问题：X[i]和Y[j-1]的一个LCS及X[i-1]和Y的一个LCS。
 
 #### 步骤3：计算LCS的长度
 
@@ -107,7 +107,7 @@ public Object[] extendedBottomUpLcs(char[] x, char[] y) {
 
 #### 构造LCS
 
-我们可以用extendedBottomUpLcs返回的表b快速构造X = <x1, x2, ..., xm>和Y = <y1, y2, ..., yn>的LCS，只需简单地从b[m][n]开始，并按箭头方向追踪下去即可。当在表项中遇到TURN时，意味着xi = yi是LCS的一个元素。按照这种方法，我们可以逆序依次构造出LCS的所有元素。
+我们可以用extendedBottomUpLcs返回的表b快速构造X = <x[1], x[2], ..., x[m]>和Y = <y[1], y[2], ..., y[n]>的LCS，只需简单地从b[m][n]开始，并按箭头方向追踪下去即可。当在表项中遇到TURN时，意味着x[i] == y[j]是LCS的一个元素。按照这种方法，我们可以逆序依次构造出LCS的所有元素。
 
 ```java
 public void constructSolution(int[][] b, char[] x, int i, int j) {
