@@ -1,6 +1,6 @@
 ## Analyzing algorithms
 
-**_Analyzing_** an algorithm has come to mean predicting the resources that the algorithm
+Analyzing an algorithm has come to mean predicting the resources that the algorithm
 requires. Occasionally, resources such as memory, communication bandwidth,
 or computer hardware are of primary concern, but most often it is computational
 time that we want to measure. Generally, by analyzing several candidate
