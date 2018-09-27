@@ -75,3 +75,5 @@
 
 * [赫夫曼编码 (Huffman code)](advanced-design-and-analysis-techniques/huffman-code.md).
 
+
+$$E = M \cdot c^2$$

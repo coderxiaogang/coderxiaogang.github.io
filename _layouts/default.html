@@ -22,5 +22,30 @@
         <span class="site-footer-credits">邮箱：<span style="color:#1e6bb8">2249975638@qq.com</span></span>
       </footer>
     </section>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>
+      MathJax.Hub.Config({
+        config: ["MMLorHTML.js"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+        jax: ["input/TeX"],
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          processEscapes: false
+        },
+        TeX: {
+          TagSide: "right",
+          TagIndent: ".8em",
+          MultLineWidth: "85%",
+          equationNumbers: {
+            autoNumber: "AMS"
+          },
+          unicode: {
+            fonts: "STIXGeneral,'Arial Unicode MS'"
+          }
+        },
+        showProcessingMessages: false
+      });
+    </script>
   </body>
 </html>
