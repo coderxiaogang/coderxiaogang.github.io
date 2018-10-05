@@ -62,6 +62,40 @@ public void recursiveInsertionSort(int[] arr, int n) {
 ### 二分插入排序
 
 在插入排序中寻找一个元素合适的插入位置时，我们可以用二分查找法来减少比较的次数。在普通的插入排序中，我们第i次需要O(i)的时间才能找到一个元素合适的插入
-位置，使用二分查找法，可以将查找时间减少为O(lgi)。但整个插入排序的时间复杂度仍然为O(n^2)，因为
+位置，使用二分查找法，可以将查找时间减少为O(lgi)。但整个插入排序的时间复杂度仍然为O(n^2)，因为第i次找到合适的位置，需要移动的元素个数没有改变，移动
+的时间复杂度仍然为O(i)。
+
+```java
+public void binaryInsertionSort(int[] arr) {
+    for (int j = 1; j < arr.length; j++) {
+        int key = arr[j];
+        int location = Math.abs(binarySearch(arr, 0, j, key) + 1);
+        int i = j - 1;
+        while (i >= location) {
+            arr[i + 1] = arr[i];
+            i--;
+        }
+        arr[i + 1] = key;
+    }
+}
+
+private int binarySearch(int[] arr, int fromIndex, int endIndex, int key) {
+    int low = fromIndex;
+    int high = endIndex;
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        if (key == arr[mid]) {
+            return mid;
+        } else if (key < arr[mid]) {
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+    return -(low + 1);
+}
+```
 
 ### 希尔排序
+
+### 单向链表中的插入排序
