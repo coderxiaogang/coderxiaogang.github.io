@@ -1,3 +1,3 @@
-## Insertion Sort
+## 插入排序
 
 Insertion sort works the way many people sort a hand of playing cards.
