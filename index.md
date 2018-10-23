@@ -4,6 +4,18 @@
 
 * [归并排序 (Merge Sort)](sorting-and-order-statistics/merge-sort.md)
 
+* [堆排序 (Heap Sort)](sorting-and-order-statistics/heap-sort.md)
+
+* [快速排序 (Quick Sort)](sorting-and-order-statistics/quick-sort.md)
+
+* [计数排序 (Counting Sort)](sorting-and-order-statistics/counting-sort.md)
+
+* [桶排序 (Bucket Sort)](sorting-and-order-statistics/bucket-sort.md)
+
+* [平均排序 (average sort)](sorting-and-order-statistics/average-sort.md).
+
+* [顺序统计量 (order statistics)](sorting-and-order-statistics/order-statistics.md).
+
 
 ### 数据结构
 
