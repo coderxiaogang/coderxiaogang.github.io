@@ -19,7 +19,7 @@
 
 用程序实现如下：
 
-```java
+```
 void insertionSort(int[] arr) {
     for (int j = 1; j < arr.length; j++) {
         int key = arr[j];
