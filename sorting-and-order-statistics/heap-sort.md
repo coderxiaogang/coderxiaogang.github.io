@@ -34,15 +34,15 @@ arr[parent(i)] <= arr[i]
 
 在堆排序算法中，我们使用的是最大堆。最小堆通常用于构造优先队列。
 
-如果把堆看成是一棵树，我们定义一个堆中的节点的高度就为该节点到叶节点最长简单路径上边的数目，进而我们可以把堆的高度定义为根节点的高度。既然一个包含 n 个元素的堆可以看做一棵完全二叉树，那么该堆的高度是 lgn。我们会发现，堆结构上的一些基本操作的运行时间至多与堆的高度成正比，即时间复杂度为 O(lgn)。
+如果把堆看成是一棵树，我们定义一个堆中的节点的高度就为该节点到叶节点最长简单路径上边的数目，进而我们可以把堆的高度定义为根节点的高度。既然一个包含 n 个元素的堆可以看做一棵完全二叉树，那么该堆的高度是 Θ(lgn)。我们会发现，堆结构上的一些基本操作的运行时间至多与堆的高度成正比，即时间复杂度为 O(lgn)。
 
-void maxHeapify(int i) 时间复杂度为 O(lgn)，它是维护最大堆性质的关键。
+* void maxHeapify(int i) 时间复杂度为 O(lgn)，它是维护最大堆性质的关键。
 
-void buildMaxHeap(int[] arr) 具有线性时间复杂度，功能是从无序的输入数组中构造一个最大堆。
+* void buildMaxHeap(int[] arr) 具有线性时间复杂度，功能是从无序的输入数组中构造一个最大堆。
 
-void heapSort(int[] arr) 时间复杂度为 O(n * lgn)，功能是对一个数组进行原址排序。
+* void heapSort(int[] arr) 时间复杂度为 O(n * lgn)，功能是对一个数组进行原址排序。
 
-void insert(int key)、int extractMax()、void increaseKey(int i, int newKey)和 int minimum() 时间复杂度为 O(lgn)，功能是利用堆实现一个优先队列。
+* void insert(int key)、int extractMax()、void increaseKey(int i, int newKey)和 int minimum() 时间复杂度为 O(lgn)，功能是利用堆实现一个优先队列。
 
 ### 维护堆的性质
 
