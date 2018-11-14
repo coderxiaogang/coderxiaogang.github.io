@@ -12,7 +12,7 @@
 
 下面的程序实现快速排序：
 
-```java
+```
 public void quickSort(int[] arr, int p, int r) {
     if (p < r) {
         int q = partition(arr, p, r);
@@ -78,7 +78,7 @@ partition在子数组arr[p...r]上的时间复杂度是Θ(n)，其中n = r - p +
 
 对quickSort和partition的改动非常小，在新的划分程序中，我们只是在真正进行划分前进行一次交换：
 
-```java
+```
 public void randomizedQuickSort(int[] arr, int p, int r) {
     if (p < r) {
         int q = randomizedPartition(arr, p, r);
@@ -104,7 +104,7 @@ private void swap(int[] arr, int i, int j) {
 
 前面给出的partition算法并不是其最初的版本，下面给出的是最早由C. R. Hoare所设计的快速排序及划分算法：
 
-```java
+```
 public void hoareQuickSort(int[] arr, int p, int r) {
     if (p < r) {
         int q = hoarePartition(arr, p, r);
@@ -152,7 +152,7 @@ private int hoarePartition(int[] arr, int p, int r) {
 
 朴素quickSort算法包含了两个对其自身的递归调用。在调用partition后，quickSort分别调用了左边的子数组和右边的子数组。quickSort第二个递归调用并不是必须的，我们可以用一个循环控制结构来替代它。这一技术称为尾递归，好的编译器都提供这一功能。考虑下面这个版本的快速排序，它模拟了尾递归情况。
 
-```java
+```
 public void tailRecursiveQuickSort(int[] arr, int p, int r) {
     while (p < r) {
         int q = partition(arr, p, r);
@@ -166,7 +166,7 @@ public void tailRecursiveQuickSort(int[] arr, int p, int r) {
 
 通过修改tailRecursiveQuickSort的代码，使其最坏情况下栈深度是Θ(lgn)，并且能够保持O(n * lgn)的期望时间复杂度。
 
-```java
+```
 public void modifiedTailRecursiveQuickSort(int[] arr, int p, int r) {
     while (p < r) {
         int q = partition(arr, p, r);
@@ -185,7 +185,7 @@ public void modifiedTailRecursiveQuickSort(int[] arr, int p, int r) {
 
 一种改进randomizedQuickSort的方法是在划分时，要从子数组中更细致地选择作为主元的元素（而不是简单地随机选择）。常用的做法是三数取中：从子数组中随机选出三个元素，取其中位数作为主元。
 
-```java
+```
 private int medianOfThreePartition(int[] arr, int p, int r) {
     int a = p + (int) (Math.random() * (r - p + 1));
     int b = p + (int) (Math.random() * (r - p + 1));
