@@ -91,7 +91,7 @@ partition 在子数组 arr[p...r] 上的时间复杂度是 Θ(n)，其中 n = r 
 对 quickSort 和 partition 的改动非常小，在新的划分程序中，我们只是在真正进行划分前进行一次交换：
 
 ```
-public void randomizedQuickSort(int[] arr, int p, int r) {
+void randomizedQuickSort(int[] arr, int p, int r) {
     if (p < r) {
         int q = randomizedPartition(arr, p, r);
         randomizedQuickSort(arr, p, q);
@@ -99,13 +99,13 @@ public void randomizedQuickSort(int[] arr, int p, int r) {
     }
 }
 
-private int randomizedPartition(int[] arr, int p, int r) {
+int randomizedPartition(int[] arr, int p, int r) {
     int i = p + (int) (Math.random() * (r - p + 1));
     swap(arr, i, r);
     return partition(arr, p, r);
 }
 
-private void swap(int[] arr, int i, int j) {
+void swap(int[] arr, int i, int j) {
     int temp = arr[i];
     arr[i] = arr[j];
     arr[j] = temp;
@@ -117,7 +117,7 @@ private void swap(int[] arr, int i, int j) {
 前面给出的 partition 算法并不是其最初的版本，下面给出的是最早由 C. R. Hoare 所设计的快速排序及划分算法：
 
 ```
-public void hoareQuickSort(int[] arr, int p, int r) {
+void hoareQuickSort(int[] arr, int p, int r) {
     if (p < r) {
         int q = hoarePartition(arr, p, r);
         hoareQuickSort(arr, p, q);
@@ -125,7 +125,7 @@ public void hoareQuickSort(int[] arr, int p, int r) {
     }
 }
 
-private int hoarePartition(int[] arr, int p, int r) {
+int hoarePartition(int[] arr, int p, int r) {
     int x = arr[p];
     int i = p - 1;
     int j = r + 1;
@@ -168,7 +168,7 @@ private int hoarePartition(int[] arr, int p, int r) {
 朴素 quickSort 算法包含了两个对其自身的递归调用。在调用 partition 后，quickSort 分别调用了左边的子数组和右边的子数组。quickSort 第二个递归调用并不是必须的，我们可以用一个循环控制结构来替代它。这一技术称为尾递归，好的编译器都提供这一功能。考虑下面这个版本的快速排序，它模拟了尾递归情况。
 
 ```
-public void tailRecursiveQuickSort(int[] arr, int p, int r) {
+void tailRecursiveQuickSort(int[] arr, int p, int r) {
     while (p < r) {
         int q = partition(arr, p, r);
         tailRecursiveQuickSort(arr, p, q - 1);
@@ -182,7 +182,7 @@ public void tailRecursiveQuickSort(int[] arr, int p, int r) {
 通过修改 tailRecursiveQuickSort 的代码，使其最坏情况下栈深度是 Θ(lgn)，并且能够保持 O(n * lgn) 的期望时间复杂度。
 
 ```
-public void modifiedTailRecursiveQuickSort(int[] arr, int p, int r) {
+void modifiedTailRecursiveQuickSort(int[] arr, int p, int r) {
     while (p < r) {
         int q = partition(arr, p, r);
         if (q < (r - p) / 2) {
@@ -201,7 +201,7 @@ public void modifiedTailRecursiveQuickSort(int[] arr, int p, int r) {
 一种改进 randomizedQuickSort 的方法是在划分时，要从子数组中更细致地选择作为主元的元素（而不是简单地随机选择）。常用的做法是三数取中：从子数组中随机选出三个元素，取其中位数作为主元。
 
 ```
-private int medianOfThreePartition(int[] arr, int p, int r) {
+int medianOfThreePartition(int[] arr, int p, int r) {
     int a = p + (int) (Math.random() * (r - p + 1));
     int b = p + (int) (Math.random() * (r - p + 1));
     int c = p + (int) (Math.random() * (r - p + 1));
@@ -210,7 +210,7 @@ private int medianOfThreePartition(int[] arr, int p, int r) {
     return partition(arr, p, r);
 }
 
-private int medianOfThree(int[] arr, int a, int b, int c) {
+int medianOfThree(int[] arr, int a, int b, int c) {
     return arr[a] < arr[b] ? (arr[b] < arr[c] ? b : arr[a] < arr[c] ? c : a)
         : arr[b] > arr[c] ? b : arr[a] > arr[c] ? c : a;
 }
