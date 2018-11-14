@@ -137,6 +137,18 @@ heapSort 的时间复杂度是 O(n * lgn)，因为每次调用 buildMaxHeap 的�
 
 堆排序是一个优秀的算法，但在实际应用中，快速排序的性能一般会优于堆排序。尽管如此，堆这一数据结构仍然有很多应用，下面我们将介绍堆的一个常见应用：作为高效的优先队列。和堆一样，优先队列也有两种形式：最大优先队列和最小优先队列。在这里，我们关注于如何基于最大堆实现最大优先队列。
 
+```
+class MaxPriorityQueue {
+    int heapSize;
+    int[] arr;
+    
+    MaxPriorityQueue(int capacity) {
+        heapSize = 0;
+        arr = new int[capacity];
+    }
+}
+```
+
 优先队列（priority queue）是一种用来维护由一组元素构成的集合 S 的数据结构，其中的每一个元素都有一个相关的值，称为关键字（key）。一个最大优先队列支持以下操作：
 
 * void insert(int key) 把元素 x 插入到集合 S 中，这一操作等价于 S = S ∪ {x}。
