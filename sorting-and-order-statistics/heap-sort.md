@@ -189,10 +189,10 @@ insert 首先通过增加一个关键字为 -∞ 的叶结点来扩展最大堆�
 
 ```
 void insert(int key) {
-        heapSize++;
-        arr[heapSize - 1] = Integer.MIN_VALUE;
-        increaseKey(heapSize - 1, key);
-    }
+    heapSize++;
+    arr[heapSize - 1] = Integer.MIN_VALUE;
+    increaseKey(heapSize - 1, key);
+}
 ```
 
 总之，在一个包含 n 个元素的堆中，所有优先队列的操作都可以在 O(lgn) 时间内完成。
