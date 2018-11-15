@@ -100,7 +100,29 @@ T(n) = T(9n/10) + T(n/10) + cn
 
 ### 快速排序的迭代版本
 
+只需要一个辅助的栈，我们可以就将递归版本的快速排序转化为迭代版本的，下面是它的实现。
 
+```
+void iterativeQuickSort(int[] arr, int p, int r) {
+    int[] stack = new int[r - p + 1];
+    int top = -1;
+    stack[++top] = p;
+    stack[++top] = r;
+    while (top >= 0) {
+        r = stack[top--];
+        p = stack[top--];
+        int pivot = partition(arr, p, r);
+        if (pivot - p > 1) {
+            stack[++top] = p;
+            stack[++top] = pivot - 1;
+        }
+        if (r - pivot > 1) {
+            stack[++top] = pivot + 1;
+            stack[++top] = r;
+        }
+    }
+}
+```
 
 ### 快速排序的随机化版本
 
