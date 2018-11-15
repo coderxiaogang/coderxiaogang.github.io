@@ -10,6 +10,8 @@
 
 * [快速排序 (Quick Sort)](sorting-and-order-statistics/quick-sort.md)
 
+* [排序算法的下界 (Lower bounds for sorting)](sorting-and-order-statistics/lower-bounds-for-sorting.md)
+
 * [计数排序 (Counting Sort)](sorting-and-order-statistics/counting-sort.md)
 
 * [桶排序 (Bucket Sort)](sorting-and-order-statistics/bucket-sort.md)
