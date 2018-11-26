@@ -25,6 +25,8 @@
 
 ### 数据结构
 
+* [栈 (Stack)](data-structures/stack.md)
+
 
 ### 高级设计和分析技术
 
