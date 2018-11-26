@@ -8,8 +8,8 @@
 
 在一个有n个元素的集合中，需要做多少次比较才能确定其最小元素呢？我们可以很容易地给出n-1次比较这个上界：依次遍历集合中的每个元素，并记录下当前最小元素。
 
-```java
-public int minimum(int[] arr) {
+```
+int minimum(int[] arr) {
     int min = arr[0];
     for (int i = 1; i < arr.length; i++) {
         if (min > arr[i]) {
@@ -34,8 +34,8 @@ public int minimum(int[] arr) {
 
 如果n是奇数，那么总共进行3 * Math.floor(n / 2)次比较，如果n是偶数，则是先进行一次初始比较，然后进行3 * (n - 2) / 2次比较，共3 * n / 2 - 2次比较。因此，不管是哪一种情况，总的比较次数至多是3 * Math.floor(n / 2)。
 
-```java
-public int minimumAndMaximum(int[] arr) {
+```
+int minimumAndMaximum(int[] arr) {
     int n =arr.length;
     int min, max, start;
     if (n % 2 == 1) {
@@ -80,8 +80,8 @@ public int minimumAndMaximum(int[] arr) {
 
 randomizedSelect利用了快速排序的randomizedPartition过程，与randomizedQuickSort一样，因为它的部分行为是由随机数生成器的输出决定的，所以它也是个随机算法。下面的代码返回数组arr[p...r]中第i小的元素。
 
-```java
-public int randomizedSelect(int[] arr, int p, int r, int i) {
+```
+int randomizedSelect(int[] arr, int p, int r, int i) {
     if (p == r) {
         return arr[p];
     }
@@ -96,13 +96,13 @@ public int randomizedSelect(int[] arr, int p, int r, int i) {
     }
 }
 
-private int randomizedPartition(int[] arr, int p, int r) {
+int randomizedPartition(int[] arr, int p, int r) {
     int i = p + (int) (Math.random() * (r - p + 1));
     swap(arr, i, r);
     return partition(arr, p, r);
 }
 
-private int partition(int[] arr, int p, int r) {
+int partition(int[] arr, int p, int r) {
     int i = p - 1;
     for (int j = p; j <= r - 1; j++) {
         if (arr[j] <= arr[r]) {
@@ -114,7 +114,7 @@ private int partition(int[] arr, int p, int r) {
     return i + 1;
 }
 
-private void swap(int[] arr, int i, int j) {
+void swap(int[] arr, int i, int j) {
     int temp = arr[i];
     arr[i] = arr[j];
     arr[j] = temp;
@@ -123,8 +123,8 @@ private void swap(int[] arr, int i, int j) {
 
 下面是randomizedSelect的基于循环的版本：
 
-```java
-public int iterativeRandomizedSelect(int[] arr, int i) {
+```
+int iterativeRandomizedSelect(int[] arr, int i) {
     int p = 0;
     int n = arr.length;
     while (p < r) {
@@ -159,8 +159,8 @@ public int iterativeRandomizedSelect(int[] arr, int i) {
 
 5. 如果i == k，则返回x。如果i < k，则在低区递归调用select来找出第i小的元素，如果i > k，则在高区递归查找第i - k小的元素。
 
-```java
-public int select(int[] arr, int p, int r, int x) {
+```
+int select(int[] arr, int p, int r, int x) {
     if (p >= r) {
         return arr[p];
     }
@@ -184,7 +184,7 @@ public int select(int[] arr, int p, int r, int x) {
     }
 }
 
-private int getMedian(int[] arr, int start, int end) {
+int getMedian(int[] arr, int start, int end) {
     for (int j = start + 1; j <= end; j++) {
         int key = arr[j];
         int i = j - 1;
@@ -197,7 +197,7 @@ private int getMedian(int[] arr, int start, int end) {
     return arr[(start + end) / 2];
 }
 
-private int partition(int[] arr, int p, int r, int pivot) {
+int partition(int[] arr, int p, int r, int pivot) {
     int i = p - 1;
     int k = 0;
     for (int j = p; j <= r; j++) {
@@ -213,7 +213,7 @@ private int partition(int[] arr, int p, int r, int pivot) {
     return i + 1;
 }
 
-private void swap(int[] arr, int i, int j) {
+void swap(int[] arr, int i, int j) {
     int temp = arr[i];
     arr[i]= arr[j];
     arr[j] = temp;
