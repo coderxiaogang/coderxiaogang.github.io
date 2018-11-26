@@ -10,11 +10,7 @@
 
 链表可以有多种形式，它可以是单链接的或双链接的，可以是已排序的或未排序的，可以是循环的或非循环的。如果一个链表是单链接 (singly linked) 的，则省略每个元素的 prev 指针。如果链表是已排序 (sorted) 的，则链表的线性顺序与链表元素中关键字的线性顺序一致，据此，最小的元素就是表头元素，而最大的元素就是表尾元素。如果链表是未排序的 (unsorted)，则各元素可以可以以任何顺序出现。在循环链表 (circular list) 中，表头元素的 prev 指针指向表尾元素，而表尾元素的 next 指针指向表头元素，我们可以把循环链表想象成一个各元素组成的圆环。在余下的部分，我们所处理的链表都是未排序的且是双链接的。
 
-### 链表的搜索
-
-可以采用简单的线性搜索方法，用于查找链表中第一个关键字为k的元素，并返回指向该元素的指针，如果链表中没有关键字为k的元素，则返回 null。要搜索一个有 n 个对象的链表，在最坏情况下运行时间为 Θ(n)，因为可能需要搜索整个链表。
-
-```
+```java
 public class LinkedList {
     Node head;
     
@@ -27,14 +23,20 @@ public class LinkedList {
             this.key = key;
         }
     }
-    
-    Node search(int key) {
-        Node node = head;
-        while (node != null && node.key != key) {
-            node = node.next;
-        }
-        return node;
+}
+```
+
+### 链表的搜索
+
+可以采用简单的线性搜索方法，用于查找链表中第一个关键字为 k 的元素，并返回指向该元素的指针，如果链表中没有关键字为 k 的元素，则返回 null。要搜索一个有 n 个对象的链表，在最坏情况下运行时间为 Θ(n)，因为可能需要搜索整个链表。
+
+```
+Node search(int key) {
+    Node node = head;
+    while (node != null && node.key != key) {
+        node = node.next;
     }
+    return node;
 }
 ```
 
