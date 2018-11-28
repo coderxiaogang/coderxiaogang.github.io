@@ -33,6 +33,10 @@
 
 * [散列表 (Hash Table)](data-structures/hash-table.md)
 
+* [二叉搜索树 (Binary Search Tree)](data-structures/binary-search-tree.md)
+
+* [红黑树 (Red Black Tree)](data-structures/red-black-tree.md)
+
 ### 高级设计和分析技术
 
 

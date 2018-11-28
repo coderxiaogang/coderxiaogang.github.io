@@ -6,11 +6,11 @@
 
 ![](../assets/images/part3/binary-search-tree.png)
 
-```java
+```
 public class BinarySearchTree {
-    private Node root;
+    Node root;
     
-    private class Node {
+    class Node {
         int key;
         Node parent;
         Node left;
@@ -29,8 +29,8 @@ public class BinarySearchTree {
 
 二叉搜索树性质允许我们通过一个简单的递归算法来按序输出二叉搜索树中的所有关键字，这种算法称为中序遍历(inorder tree walk)。这样命名的原因是输出的子树根的关键字位于其左子树的关键字和右子树的关键字之间。类似地，先序遍历(preorder tree walk)输出的根的关键字在其左右子树关键字之前，而后序遍历(postorder tree walk)输出的根的关键字在其左右子树的关键字之后。
 
-```java
-public void inorderTreeWalk(Node node) {
+```
+void inorderTreeWalk(Node node) {
     if (node != null) {
         inorderTreeWalk(node.left);
         System.out.println(node);
@@ -49,8 +49,8 @@ public void inorderTreeWalk(Node node) {
 
 使用下面的方法在一棵二叉搜索树中查找一个具有给定关键字的结点。
 
-```java
-public Node search(int key) {
+```
+Node search(int key) {
     Node node = root;
     while (node != null && node.key != key) {
         if (key < node.key) {
@@ -69,8 +69,8 @@ public Node search(int key) {
 
 通过从树根开始沿着left孩子指针直到遇到一个null,我们总能在一棵二叉搜索树中找到以给定节点x为根的最小节点。
 
-```java
-public Node minimum(Node node) {
+```
+Node minimum(Node node) {
     while (node.left != null) {
         node = node.left;
     }
@@ -82,8 +82,8 @@ public Node minimum(Node node) {
 
 maximum的代码是对称的：
 
-```java
-public Node maximum(Node node) {
+```
+Node maximum(Node node) {
     while (node.right != null) {
         node = node.right;
     }
@@ -97,8 +97,8 @@ public Node maximum(Node node) {
 
 给定一棵二叉搜索树中的一个结点，有时候需要按中序遍历的次序查找它的后继。如果所有的关键字互不相同，则一个结点x的后继是大于x.key的最小关键字的节点。一棵二叉搜索树的结构允许我们通过没有任何关键字的比较来确定一个结点的后继。
 
-```java
-public Node successor(Node node) {
+```
+Node successor(Node node) {
     if (node.right != null) {
         return minimum(node.right);
     }
@@ -115,8 +115,8 @@ successor的代码分两种情况：如果结点x的右子树非空，那么x的
 
 在一棵高度为h的树上，successor的运行时间为O(h)，因为该过程或者遵从一条简单路径沿树向上或者遵从一条简单路径沿树向下。predecessor和successor是对称的，其运行时间也是O(h)。
 
-```java
-public Node predecessor(Node node) {
+```
+Node predecessor(Node node) {
     if (node.left != null) {
         return maximum(node.left);
     }
@@ -137,8 +137,8 @@ public Node predecessor(Node node) {
 
 #### 插入
 
-```java
-public void insert(int key) {
+```
+void insert(int key) {
     Node newNode = new Node(key);
     Node parent = null;
     Node trailingPointer = root;
@@ -193,8 +193,8 @@ insert从树根开始，指针trailingPointer记录了一条向下的简单路�
 
 transplant并没有处理v.left和v.right的更新，这些更新都由transplant的调用者来负责。
 
-```java
-public void delete(int key) {
+```
+void delete(int key) {
     Node node = search(key);
     if (node == null) {
         return;
@@ -216,7 +216,7 @@ public void delete(int key) {
     }
 }
 
-private void transplant(Node src, Node dest) {
+void transplant(Node src, Node dest) {
     if (dest.parent == null) {
         root = src;
     } else if (dest == dest.parent.left) {

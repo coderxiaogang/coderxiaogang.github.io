@@ -8,14 +8,14 @@
 
 树中的每个结点包含5个属性：color、key、left、right和parent。如果一个结点没有子结点或父结点，则该结点相应指针属性的值为nil。我们可以把这些nil视为指向二叉搜索树的叶结点（外部结点）的指针，而把带关键字的结点视为树的内部结点。
 
-```java
+```
 public class RedBlackTree {
-    private Node root;
-    private Node nil;
-    private static final boolean RED = true;
-    private static final boolean BLACK = false;
+    Node root;
+    Node nil;
+    static final boolean RED = true;
+    static final boolean BLACK = false;
     
-    private class Node {
+    class Node {
         int key;
         Node parent;
         Node left;
@@ -27,7 +27,7 @@ public class RedBlackTree {
         }
     }
     
-    public RedBlackTree() {
+    RedBlackTree() {
         nil = new Node(-1);
         nil.color = BLACK;
         root = nil;
@@ -65,8 +65,8 @@ public class RedBlackTree {
 
 ![](../assets/images/part3/red-black-tree3.png)
 
-```java
-private void leftRotate(Node p) {
+```
+void leftRotate(Node p) {
     Node r = p.right;
     p.right = r.left;
     p.right.parent = p;
@@ -82,7 +82,7 @@ private void leftRotate(Node p) {
     r.left.parent = r;
 }
 
-private void rightRotate(Node p) {
+void rightRotate(Node p) {
     Node l = p.left;
     p.left = l.right;
     p.left.parent = p;
@@ -107,8 +107,8 @@ private void rightRotate(Node p) {
 
 我们可以在O(lgn)的时间内完成向一棵含n个结点的红黑树中插入一个新结点。为了做到这一点，利用二叉搜索树略作修改的insert版本来将结点z插入树内，就好像一棵普通的二叉搜索树一样，然后将z着为红色。为了保证红黑性质能继续保持，我们调用一个辅助程序insertFixUp来对结点重新着色并旋转。
 
-```java
-public void insert(int key) {
+```
+void insert(int key) {
     Node newNode = new Node(key);
     Node parent = nil;
     Node trailingPointer = root;
@@ -134,7 +134,7 @@ public void insert(int key) {
     insertFixUp(newNode);
 }
 
-private void insertFixUp(Node node) {
+void insertFixUp(Node node) {
     while (node.parent.color == RED) {
         if (node.parent == node.parent.parent.left) {
             Node uncle = node.parent.parent.right;
@@ -212,8 +212,8 @@ while循环在每次迭代的开头保持下列三个部分的不变式：
 
 从一棵红黑树中删除结点是基于普通二叉搜索树的delete过程。首先，需要特别设计一个子程序transplant，并将其应用到红黑树上。
 
-```java
-private void transplant(Node src, Node dest) {
+```
+void transplant(Node src, Node dest) {
     if (dest.parent == nil) {
         root = src;
     } else if (dest == dest.parent.left) {
@@ -227,8 +227,8 @@ private void transplant(Node src, Node dest) {
 
 红黑树的delete和普通二叉搜索树的delete类似，只是多了几行代码。多出的几行代码记录结点y的踪迹，y有可能导致红黑性质的破坏。当想要删除结点z，且此时z的子结点少于2个时，z从树中删除，并让y成为z。当z有两个子结点时，y应该是z的后继，并且y将移至树中的z位置。在结点被移除或者在树中移动之前，必须记住y的颜色，并且记录结点x的踪迹，将x移至树中y原来的位置，因为结点x也可能会引起红黑性质的破坏。删除结点z后，需要调用一个辅助过程deleteFixUp，该过程通过改变颜色和执行旋转来恢复红黑性质。
 
-```java
-public void delete(int key) {
+```
+void delete(int key) {
     Node node = search(key);
     if (node == nil) {
         return;
@@ -260,7 +260,7 @@ public void delete(int key) {
     }
 }
 
-private void deleteFixUp(Node node) {
+void deleteFixUp(Node node) {
     while (node != nil && node.color == BLACK) {
         if (node == node.parent.left) {
             Node sibling = node.parent.right;
