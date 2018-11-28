@@ -37,7 +37,12 @@
 
 * [红黑树 (Red Black Tree)](data-structures/red-black-tree.md)
 
+
 ### 高级设计和分析技术
+
+* [概述](advanced-design-and-analysis-techniques/introduction.md)
+
+* [动态规划](advanced-design-and-analysis-techniques/dynamic-programming.md)
 
 
 ### 图算法
