@@ -37,6 +37,8 @@
 
 * [红黑树 (Red Black Tree)](data-structures/red-black-tree.md)
 
+* [B树 (B Tree)](data-structures/b-tree.md)
+
 
 ### 高级设计和分析技术
 
