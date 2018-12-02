@@ -8,7 +8,7 @@
 
 在一个有 n 个元素的集合中，需要做多少次比较才能确定其最小元素呢？我们可以很容易地给出 n - 1 次比较这个上界：依次遍历集合中的每个元素，并记录下当前最小元素。
 
-```
+```java
 int minimum(int[] arr) {
     int min = arr[0];
     for (int i = 1; i < arr.length; i++) {
@@ -34,7 +34,7 @@ int minimum(int[] arr) {
 
 如果 n 是奇数，那么总共进行 3 * Math.floor(n / 2) 次比较，如果 n 是偶数，则是先进行一次初始比较，然后进行 3 * (n - 2) / 2 次比较，共 3 * n / 2 - 2 次比较。因此，不管是哪一种情况，总的比较次数至多是 3 * Math.floor(n / 2)。
 
-```
+```java
 int minimumAndMaximum(int[] arr) {
     int n =arr.length;
     int min, max, start;
@@ -80,7 +80,7 @@ int minimumAndMaximum(int[] arr) {
 
 randomizedSelect 利用了快速排序的 randomizedPartition 过程，与 randomizedQuickSort 一样，因为它的部分行为是由随机数生成器的输出决定的，所以它也是个随机算法。下面的代码返回数组 arr[p...r] 中第 i 小的元素。
 
-```
+```java
 int randomizedSelect(int[] arr, int p, int r, int i) {
     if (p == r) {
         return arr[p];
@@ -98,7 +98,7 @@ int randomizedSelect(int[] arr, int p, int r, int i) {
 
 int randomizedPartition(int[] arr, int p, int r) {
     int i = p + (int) (Math.random() * (r - p + 1));
-    swap(arr, i, r);
+    Util.swap(arr, i, r);
     return partition(arr, p, r);
 }
 
@@ -107,23 +107,17 @@ int partition(int[] arr, int p, int r) {
     for (int j = p; j <= r - 1; j++) {
         if (arr[j] <= arr[r]) {
             i++;
-            swap(arr, i, j);
+            Util.swap(arr, i, j);
         }
     }
-    swap(arr, i + 1, r);
+    Util.swap(arr, i + 1, r);
     return i + 1;
-}
-
-void swap(int[] arr, int i, int j) {
-    int temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
 }
 ```
 
 下面是 randomizedSelect 的基于循环的版本：
 
-```
+```java
 int iterativeRandomizedSelect(int[] arr, int i) {
     int p = 0;
     int n = arr.length;
@@ -161,7 +155,7 @@ randomizedSelect 的最坏情况运行时间是 Θ(n^2)，即使是找出最小�
 
 5. 如果 i = k，则返回 x。如果 i < k，则在低区递归调用 select 来找出第 i 小的元素，如果 i > k，则在高区递归查找第 i - k 小的元素。
 
-```
+```java
 int select(int[] arr, int p, int r, int x) {
     if (p >= r) {
         return arr[p];
@@ -205,17 +199,17 @@ int partition(int[] arr, int p, int r, int pivot) {
     for (int j = p; j <= r; j++) {
         if (arr[j] < pivot) {
             i++;
-            swap(arr, i, j);
+            Util.swap(arr, i, j);
         }
         if (arr[j] == pivot) {
             k = j;
         }
     }
-    swap(arr, i + 1, k);
+    Util.swap(arr, i + 1, k);
     return i + 1;
 }
 
-void swap(int[] arr, int i, int j) {
+void Util.swap(int[] arr, int i, int j) {
     int temp = arr[i];
     arr[i]= arr[j];
     arr[j] = temp;
