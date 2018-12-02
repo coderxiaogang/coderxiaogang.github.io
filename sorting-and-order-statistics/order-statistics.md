@@ -208,12 +208,6 @@ int partition(int[] arr, int p, int r, int pivot) {
     Util.swap(arr, i + 1, k);
     return i + 1;
 }
-
-void Util.swap(int[] arr, int i, int j) {
-    int temp = arr[i];
-    arr[i]= arr[j];
-    arr[j] = temp;
-}
 ```
 
 ![](../assets/images/sorting-and-order-statistics/order-statistic.png)
