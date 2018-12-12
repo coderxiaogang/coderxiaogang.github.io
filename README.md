@@ -1,1 +1,1 @@
-[https://dailyalgorithms.github.io](https://dailyalgorithms.github.io)
+[https://blijojodiblido.github.io](https://blijojodiblido.github.io)
