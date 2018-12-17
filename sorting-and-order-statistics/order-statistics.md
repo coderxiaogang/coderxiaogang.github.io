@@ -30,13 +30,13 @@ int minimum(int[] arr) {
 
 事实上，我们只需要最多 3 * Math.floor(n / 2) 次比较就可以同时找到最小值和最大值。具体的方法是记录已知的最小值和最大值，但我们并不是将每一个输入元素与当前的最小值和最大值进行比较，这样做的代价是每个元素需要 2 次比较，而是对输入元素成对地进行处理。首先，我们将一对输入元素互相进行比较，然后把较小的与当前最小值比较，把较大的与当前最大值进行比较。这样，对每 2 个元素共需 3 次比较。
 
-如何设定已知的最小值和最大值的初始值依赖于 n 是奇数还是偶数。如果 n 是奇数，我们就将最小值和最大值的初始值都设置为第一个元素的值，然后成对地处理余下的元素。如果 n 是偶数，就对前两个元素做一次比较，以决定最小值和最大值的初始值，然后与 n 是奇数时的情形一样，成对地处理余下的元素。
+如何设定已知的最小值和最大值的初始值依赖于 n 是奇数还是偶数。如果 n 是奇数，我们就将最小值和最大值的初始值都设置为第一个元素的值，然后成对地处理余下的元素。如果 n 是偶数，就对前两个元素做一次比较，以决定最小值和最大值的初始值，然后成对地处理余下的元素。
 
 如果 n 是奇数，那么总共进行 3 * Math.floor(n / 2) 次比较，如果 n 是偶数，则是先进行一次初始比较，然后进行 3 * (n - 2) / 2 次比较，共 3 * n / 2 - 2 次比较。因此，不管是哪一种情况，总的比较次数至多是 3 * Math.floor(n / 2)。
 
 ```java
 int minimumAndMaximum(int[] arr) {
-    int n =arr.length;
+    int n = arr.length;
     int min, max, start;
     if (n % 2 == 1) {
         min = max = arr[0];
@@ -97,14 +97,14 @@ int randomizedSelect(int[] arr, int p, int r, int i) {
 }
 
 int randomizedPartition(int[] arr, int p, int r) {
-    int i = p + (int) (Math.random() * (r - p + 1));
+    int i = Util.randomInt(p, r + 1);
     Util.swap(arr, i, r);
     return partition(arr, p, r);
 }
 
 int partition(int[] arr, int p, int r) {
     int i = p - 1;
-    for (int j = p; j <= r - 1; j++) {
+    for (int j = p; j < r; j++) {
         if (arr[j] <= arr[r]) {
             i++;
             Util.swap(arr, i, j);
@@ -137,7 +137,7 @@ int iterativeRandomizedSelect(int[] arr, int i) {
 }
 ```
 
-randomizedSelect 的最坏情况运行时间是 Θ(n^2)，即使是找出最小元素也是如此，因为在每次划分时可能极不走运地总是按余下的元素中最大的来划分，而划分操作需要 Θ(n) 时间。我们也将看到该算法有线性的期望运行时间，又因为它是随机化的，所以不存在一个特定的会导致其最坏情况发生的输入数据。
+randomizedSelect 的最坏情况运行时间是 Θ(n^2)，即使是找出最小元素也是如此，因为在每次划分时可能极不走运地总是按余下的元素中最大的来划分，而划分操作需要 Θ(n) 时间。该算法有线性的期望运行时间，又因为它是随机化的，所以不存在一个特定的会导致其最坏情况发生的输入数据。
 
 ### 最坏情况为线性时间的选择算法
 
