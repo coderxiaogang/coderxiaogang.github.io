@@ -144,43 +144,6 @@ int randomizedPartition(int[] arr, int p, int r) {
 }
 ```
 
-### Hoare划分
-
-前面给出的 partition 算法并不是其最初的版本，下面给出的是最早由 C. R. Hoare 所设计的快速排序及划分算法：
-
-```java
-void hoareQuickSort(int[] arr, int p, int r) {
-    if (p < r) {
-        int q = hoarePartition(arr, p, r);
-        hoareQuickSort(arr, p, q);
-        hoareQuickSort(arr, q + 1, r);
-    }
-}
-
-int hoarePartition(int[] arr, int p, int r) {
-    int x = arr[p];
-    int i = p - 1;
-    int j = r + 1;
-    while (true) {
-        do {
-            i++;
-        } while (arr[i] < x);
-        do {
-            j--;
-        } while (arr[j] > x);
-        if (i < j) {
-            Util.swap(arr, i, j);
-        } else {
-            return j;
-        }
-    }
-}
-```
-
-下标 i 和 j 可以使我们不会访问在子数组 arr[p...r] 以外的数组元素，当 hoarePartition 结束时，它的返回值 j 满足 p <= j < r，arr[p...j] 中的每一个元素都小于或等于 arr[j+1...r] 中的元素。
-
-在前面的 partition 过程中，主元（原来存储在 arr[r] 中）是与它所划分的两个分区分离的。与之对应，在 hoarePartition 中，主元（原来存储在 arr[p] 中）是存在于分区 arr[p...j] 或 arr[j+1...r] 中的。因为有 p <= j < r，所以这一划分总是非平凡的。
-
 ### 快速排序的栈深度
 
 朴素 quickSort 算法包含了两个对其自身的递归调用。在调用 partition 后，quickSort 分别调用了左边的子数组和右边的子数组。quickSort 第二个递归调用并不是必须的，我们可以用一个循环控制结构来替代它。这一技术称为尾递归，好的编译器都提供这一功能。考虑下面这个版本的快速排序，它模拟了尾递归情况。
@@ -209,41 +172,6 @@ void modifiedTailRecursiveQuickSort(int[] arr, int p, int r) {
         } else {
             modifiedTailRecursiveQuickSort(arr, q + 1, r);
             r = q - 1;
-        }
-    }
-}
-```
-
-### 三数取中划分
-
-一种改进 randomizedQuickSort 的方法是在划分时，要从子数组中更细致地选择作为主元的元素（而不是简单地随机选择）。常用的做法是三数取中：从子数组中随机选出三个元素，取其中位数作为主元。
-
-```java
-int medianOfThreePartition(int[] arr, int p, int r) {
-    int a = p + Util.randomInt(0, r - p + 1);
-    int b = p + Util.randomInt(0, r - p + 1);
-    int c = p + Util.randomInt(0, r - p + 1);
-    int m = medianOfThree(arr, a, b, c);
-    Util.swap(arr, m, r);
-    return partition(arr, p, r);
-}
-
-int medianOfThree(int[] x, int a, int b, int c) {
-    if (x[a] < x[b]) {
-        if (x[b] < x[c]) {
-            return b;
-        } else if (x[a] < x[c]) {
-            return c;
-        } else {
-            return a;
-        }
-    } else {
-        if (x[b] > x[c]) {
-            return b;
-        } else if (x[a] > x[c]) {
-            return c;
-        } else {
-            return a;
         }
     }
 }
