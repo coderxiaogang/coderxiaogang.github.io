@@ -191,32 +191,32 @@ void modifiedTailRecursiveQuickSort(int[] arr, int p, int r) {
 
 与 partition 类似，新构造的 partition 的时间复杂度是 Θ(r - p)，只有分区内的元素互不相同的时候才做递归调用。
 
-下面的代码实现了 3 路快排，pivot 为 arr[r]，循环过程中始终保持 arr[l...lt] 小于 pivot，arr[gt...r] 大于 pivot，arr[lt+1...gt-1] 等于 pivot，partition 返回 lt 和 gt，之后只需对 arr[l...lt] 和 arr[gt...r] 两部分进行递归调用即可。
+下面的代码实现了 3 路快排，pivot 为 arr[r]，循环过程中始终保持 arr[p...lt] 小于 pivot，arr[gt...r] 大于 pivot，arr[lt+1...gt-1] 等于 pivot，partition返回 lt 和 gt，之后只需对 arr[p...lt] 和 arr[gt...r] 两部分进行递归调用即可。
 
 ```java
-void threeWayQuickSort(int[] arr, int l, int r) {
-    if (l < r) {
-        int[] res = threeWayPartition(arr, l, r);
+void threeWayQuickSort(int[] arr, int p, int r) {
+    if (p < r) {
+        int[] res = threeWayPartition(arr, p, r);
         int lt = res[0];
         int gt = res[1];
-        threeWayQuickSort(arr, l, lt);
+        threeWayQuickSort(arr, p, lt);
         threeWayQuickSort(arr, gt, r);
     }
 }
 
-int[] threeWayPartition(int[] arr, int l, int r) {
-    int lt = l - 1;
+int[] threeWayPartition(int[] arr, int p, int r) {
+    int lt = p - 1;
     int gt = r;
-    int i = l;
+    int i = p;
     int pivot = arr[r];
     while (i < gt) {
         if (arr[i] < pivot) {
-            Util.swap(arr, i, lt + 1);
             lt++;
+            Util.swap(arr, i, lt);
             i++;
         } else if (arr[i] > pivot) {
-            Util.swap(arr, i, gt - 1);
             gt--;
+            Util.swap(arr, i, gt);
         } else {
             i++;
         }
