@@ -23,7 +23,6 @@ void radixSort(int[] arr) {
     int max = maximum(arr);
     for (int exp = 1; max / exp > 0; exp *= 10) {
         countingSort(arr, exp);
-        Util.printArray(arr);
     }
 }
 
