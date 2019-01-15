@@ -118,9 +118,7 @@ int partition(int[] arr, int p, int r) {
 下面是 randomizedSelect 的基于循环的版本：
 
 ```java
-int iterativeRandomizedSelect(int[] arr, int i) {
-    int p = 0;
-    int n = arr.length;
+int iterativeRandomizedSelect(int[] arr, int p, int r, int i) {
     while (p < r) {
         int q = randomizedPartition(arr, p, r);
         int k = q - p + 1;
@@ -149,7 +147,7 @@ randomizedSelect 的最坏情况运行时间是 Θ(n^2)，即使是找出最小�
 
 2. 寻找这 Math.ceil(n / 5) 组中每一组的中位数：首先对每组元素进行插入排序，然后确定每组有序元素的中位数。
 
-3. 对第2步中找出的 Math.ceil(n / 5) 个中位数，递归调用 select 以找出其中位数 x（如果有偶数个中位数，为了方便约定 x 是较小的中位数）。
+3. 对第 2 步中找出的 Math.ceil(n / 5) 个中位数，递归调用 select 以找出其中位数 x（如果有偶数个中位数，为了方便约定 x 是较小的中位数）。
 
 4. 利用修改过的 partition 版本，按中位数的中位数 x 对输入数组进行划分。让 k 比划分的低区中的元素数目多 1，因此 x 是第 k 小的元素，并且有 n - k 个元素在划分的高区。
 
@@ -157,7 +155,7 @@ randomizedSelect 的最坏情况运行时间是 Θ(n^2)，即使是找出最小�
 
 ```java
 int select(int[] arr, int p, int r, int x) {
-    if (p >= r) {
+    if (p == r) {
         return arr[p];
     }
     int n = r - p + 1;
@@ -195,17 +193,12 @@ int getMedian(int[] arr, int start, int end) {
 
 int partition(int[] arr, int p, int r, int pivot) {
     int i = p - 1;
-    int k = 0;
     for (int j = p; j <= r; j++) {
         if (arr[j] < pivot) {
             i++;
             Util.swap(arr, i, j);
         }
-        if (arr[j] == pivot) {
-            k = j;
-        }
     }
-    Util.swap(arr, i + 1, k);
     return i + 1;
 }
 ```
