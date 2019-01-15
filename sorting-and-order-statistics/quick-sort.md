@@ -206,13 +206,12 @@ int[] threeWayPartition(int[] arr, int p, int r) {
     int lt = p - 1;
     int gt = r;
     int i = p;
-    int pivot = arr[r];
     while (i < gt) {
-        if (arr[i] < pivot) {
+        if (arr[i] < arr[r]) {
             lt++;
             Util.swap(arr, i, lt);
             i++;
-        } else if (arr[i] > pivot) {
+        } else if (arr[i] > arr[r]) {
             gt--;
             Util.swap(arr, i, gt);
         } else {
