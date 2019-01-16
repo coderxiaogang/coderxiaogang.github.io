@@ -163,7 +163,7 @@ int select(int[] arr, int p, int r, int i) {
     int[] medians = new int[g];
     for (int j = 0; j < g; j++) {
         int start = p + j * 5;
-        int end = (start + 5 > r) ? r : (start + 5);
+        int end = (start + 4 > r) ? r : (start + 4);
         medians[j] = getMedian(arr, start, end);
     }
     int medOfMed = select(medians, 0, g - 1, (g + 1) / 2);
