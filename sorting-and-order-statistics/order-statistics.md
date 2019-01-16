@@ -166,7 +166,7 @@ int select(int[] arr, int p, int r, int i) {
         int end = (start + 5 > r) ? r : (start + 5);
         medians[j] = getMedian(arr, start, end);
     }
-    int medOfMed = select(medians, 0, g - 1, (g - 1) / 2 + 1);
+    int medOfMed = select(medians, 0, g - 1, (g + 1) / 2);
     int q = partition(arr, p, r, medOfMed);
     int k = q - p + 1;
     if (i == k) {
