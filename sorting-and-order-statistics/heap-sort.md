@@ -185,6 +185,9 @@ extractMax 的时间复杂度为 O(lgn)，因为除了时间复杂度为 O(lgn) 
 
 ```java
 int extractMax() {
+    if (heapSize == 0) {
+        throw new RuntimeException("heap underflow");
+    }
     int max = arr[0];
     Util.swap(arr, 0, heapSize - 1);
     heapSize--;
@@ -197,6 +200,9 @@ int extractMax() {
 
 ```java
 void increaseKey(int i, int key) {
+    if (key < arr[i]) {
+        throw new RuntimeException("new key is less than current key");
+    }
     while (parent(i) >= 0 && arr[parent(i)] < key) {
         arr[i] = arr[parent(i)];
         i = parent(i);
@@ -213,6 +219,9 @@ insert 首先通过增加一个关键字为 -∞ 的叶结点来扩展最大堆�
 
 ```java
 void insert(int key) {
+    if (heapSize == arr.length) {
+        throw new RuntimeException("heap overflow");
+    }
     heapSize++;
     arr[heapSize - 1] = Integer.MIN_VALUE;
     increaseKey(heapSize - 1, key);
