@@ -113,29 +113,29 @@ void rightRotate(Node p) {
 
 ```java
 void insert(int key) {
-    Node newNode = new Node(key);
-    Node parent = nil;
-    Node trailingPointer = root;
-    while (trailingPointer != nil) {
-        parent = trailingPointer;
-        if (key < trailingPointer.key) {
-            trailingPointer = trailingPointer.left;
+    Node node = new Node(key);
+    Node p = nil;
+    Node temp = root;
+    while (temp != nil) {
+        p = temp;
+        if (key < temp.key) {
+            temp = temp.left;
         } else {
-            trailingPointer = trailingPointer.right;
+            temp = temp.right;
         }
     }
-    newNode.parent = parent;
-    if (parent == nil) {
-        root = newNode;
-    } else if (key < parent.key) {
-        parent.left = newNode;
+    node.parent = p;
+    if (p == nil) {
+        root = node;
+    } else if (key < p.key) {
+        p.left = node;
     } else {
-        parent.right = newNode;
+        p.right = node;
     }
-    newNode.left = nil;
-    newNode.right = nil;
-    newNode.color = RED;
-    insertFixUp(newNode);
+    node.left = nil;
+    node.right = nil;
+    node.color = RED;
+    insertFixUp(node);
 }
 
 void insertFixUp(Node node) {
