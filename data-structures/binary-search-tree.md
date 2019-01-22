@@ -111,7 +111,9 @@ Node successor(Node node) {
 }
 ```
 
-successor 的代码分两种情况：如果结点 x 的右子树非空，那么 x 的后继恰好是 x 右子树中的最左结点，通过调用 minimum 可以得到。如果结点 x 的右子树为空并有一个后继 y，那么 y 就是 x 的有左孩子的最底层祖先，并且它也是 x 的一个祖先。
+![](../assets/images/part3/binary-search-tree2.png)
+
+successor 的代码分两种情况：如果结点 x 的右子树非空，那么 x 的后继恰好是 x 右子树中的最左结点，通过调用 minimum 可以得到，例如，在上图中，15 的后继是 17。如果结点 x 的右子树为空并有一个后继 y，那么 y 就是 x 的有左孩子的最底层祖先，并且它也是 x 的一个祖先，例如，在上图中，13 的后继是 15。
 
 在一棵高度为 h 的树上，successor 的运行时间为 O(h)，因为该过程或者遵从一条简单路径沿树向上或者遵从一条简单路径沿树向下。predecessor 和 successor 是对称的，其运行时间也是 O(h)。
 
@@ -177,7 +179,7 @@ insert 从树根开始，指针 temp 记录了一条向下的简单路径，该�
 
 从一棵二叉搜索树中删除一个给定的节点 z，考虑下图显示的 4 种情况，它与前面概括的 3 种情况有些不同。
 
-![](../assets/images/part3/binary-search-tree2.png)
+![](../assets/images/part3/binary-search-tree3.png)
 
 1. 如果 z 没有左孩子，那么用其右孩子来替换 z，这个右孩子可以是 null，也可以不是。当 z 的右孩子是 null 时，此时这种情况归为 z 没有孩子结点的情形。当 z 的右孩子非 null 时，这种情况就是 z 仅有一个孩子结点的情形，该孩子是其右孩子。
 
