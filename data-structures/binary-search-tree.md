@@ -102,12 +102,12 @@ Node successor(Node node) {
     if (node.right != null) {
         return minimum(node.right);
     }
-    Node parent = node.parent;
-    while (parent != null && node == parent.right) {
-        node = parent;
-        parent = parent.parent;
+    Node p = node.parent;
+    while (p != null && node == p.right) {
+        node = p;
+        p = p.parent;
     }
-    return parent;
+    return p;
 }
 ```
 
@@ -120,12 +120,12 @@ Node predecessor(Node node) {
     if (node.left != null) {
         return maximum(node.left);
     }
-    Node parent = node.parent;
-    while (parent != null && node == parent.left) {
-        node = parent;
-        parent = parent.parent;
+    Node p = node.parent;
+    while (p != null && node == p.left) {
+        node = p;
+        p = p.parent;
     }
-    return parent;
+    return p;
 }
 ```
 
@@ -139,24 +139,24 @@ Node predecessor(Node node) {
 
 ```java
 void insert(int key) {
-    Node newNode = new Node(key);
-    Node parent = null;
-    Node trailingPointer = root;
-    while (trailingPointer != null) {
-        parent = trailingPointer;
-        if (key < trailingPointer.key) {
-            trailingPointer = trailingPointer.left;
+    Node node = new Node(key);
+    Node p = null;
+    Node temp = root;
+    while (temp != null) {
+        p = temp;
+        if (key < temp.key) {
+            temp = temp.left;
         } else {
-            trailingPointer = trailingPointer.right;
+            temp = temp.right;
         }
     }
-    newNode.parent = parent;
-    if (parent == null) {
-        root = newNode;
-    } else if (key < parent.key) {
-        parent.left = newNode;
+    node.parent = p;
+    if (p == null) {
+        root = node;
+    } else if (key < p.key) {
+        p.left = node;
     } else {
-        parent.right = newNode;
+        p.right = node;
     }
 }
 ```
