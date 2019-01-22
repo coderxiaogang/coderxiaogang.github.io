@@ -22,12 +22,11 @@ public class RedBlackTree {
         Node right;
         boolean color;
         
+        Node() {
+        }
+
         Node(int key) {
             this.key = key;
-        }
-        
-        Node() {
-            this.key = Integer.MIN_VALUE;
         }
     }
     
