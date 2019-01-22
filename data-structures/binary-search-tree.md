@@ -189,9 +189,9 @@ insert 从树根开始，指针 temp 记录了一条向下的简单路径，该�
 
 5. 否则，y 位于 z 的右子树中但不是 z 的右孩子。在这种情况下，先用 y 的右孩子替换 y，然后再用 y 替换 z。
 
-为了在二叉搜索树中移动子树，定义一个子过程 transplant，它用另一棵子树替换一棵子树并成为其父结点的孩子结点。当 transplant 用一棵以 v 为根的子树来替换一棵以 u 为根的子树时，结点 u 的父结点就变为结点 v 的父结点，并且最后 v 成为 u 的父结点的相应孩子。
+为了在二叉搜索树中移动子树，定义一个子过程 transplant，它用另一棵子树替换一棵子树并成为其父结点的孩子结点。当 transplant 用一棵以 src 为根的子树来替换一棵以 dest 为根的子树时，结点 dest 的父结点就变为结点 src 的父结点，并且最后 src 成为 dest 的父结点的相应孩子。
 
-transplant 并没有处理 v.left 和 v.right 的更新，这些更新都由 transplant 的调用者来负责。
+transplant 并没有处理 src.left 和 src.right 的更新，这些更新都由 transplant 的调用者来负责。
 
 ```java
 void delete(int key) {
