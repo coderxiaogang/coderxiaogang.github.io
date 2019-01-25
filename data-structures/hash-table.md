@@ -81,21 +81,23 @@ h: U x {0, 1, ..., m - 1} -> {0, 1, ..., m - 1}
 ```java
 public class HashTable {
     int m;
-    Node[] nodes;
-    
-    class Node {
+    Slot[] slots;
+
+    class Slot {
         int key;
-        
-        Node(int key) {
+        boolean deleted;
+
+        Slot(int key) {
             this.key = key;
+            deleted = false;
         }
     }
-    
+
     HashTable(int capacity) {
         m = capacity;
-        nodes = new Node[capacity];
+        slots = new Slot[capacity];
     }
-    
+
     int h(int key, int i) {
         return (h1(key) + i * h2(key)) % m;
     }
@@ -107,13 +109,13 @@ public class HashTable {
     int h2(int key) {
         return 1 + (key % (m - 1));
     }
-    
+
     void insert(int key) {
         int i = 0;
         do {
             int j = h(key, i);
-            if (nodes[j] == null) {
-                nodes[j] = new Node(key);
+            if (slots[j] == null || slots[j].deleted) {
+                slots[j] = new Slot(key);
                 return;
             }
             i++;
@@ -126,16 +128,16 @@ public class HashTable {
 查找关键字 k 的算法的探查序列与将 k 插入时的算法一样，因此，查找过程中碰到一个空槽时，查找算法就（非成功地）停止，因为如果 k 在表中，它就应该在此处，而不会在探查序列随后的位置上（之所以这么说，是假定了关键字不会从散列表中删除）。
 
 ```java
-Node search(int key) {
+Slot search(int key) {
     int i = 0;
     int j;
     do {
         j = h(key, i);
-        if (nodes[j].key == key) {
-            return nodes[j];
+        if (slots[j] != null && slots[j].key == key) {
+            return slots[j].deleted ? null : slots[j];
         }
         i++;
-    } while (nodes[j] != null && i != m);
+    } while (slots[j] != null && i != m);
     return null;
 }
 ```
