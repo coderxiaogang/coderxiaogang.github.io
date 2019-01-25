@@ -167,7 +167,9 @@ Slot search(int key) {
     int j;
     do {
         j = h(key, i);
-        if (slots[j] != null && slots[j].key == key) {
+        if (slots[j] == null) {
+            return null;
+        } else if (slots[j].key == key) {
             return slots[j].deleted ? null : slots[j];
         }
         i++;
