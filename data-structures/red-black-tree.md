@@ -243,6 +243,8 @@ void transplant(Node src, Node dest) {
 }
 ```
 
+红黑树的 transplant 和普通二叉搜索树的有所不同：首先，用 nil 代替直接的 null，其次，对 src.parent 的赋值是无条件执行，即使 src 指向 nil，也要对 src.parent 赋值。实际上，当 src = nil 时，也能给 src.parent 赋值。
+
 红黑树的 delete 和普通二叉搜索树的 delete 类似，只是多了几行代码。多出的几行代码记录结点 y 的踪迹，y 有可能导致红黑性质的破坏。当想要删除结点 z，且此时 z 的子结点少于 2 个时，z 从树中删除，并让 y 成为 z。当 z 有两个子结点时，y 应该是 z 的后继，并且 y 将移至树中的 z 位置。在结点被移除或者在树中移动之前，必须记住 y 的颜色，并且记录结点 x 的踪迹，将 x 移至树中 y 原来的位置，因为结点 x 也可能会引起红黑性质的破坏。删除结点 z 后，需要调用一个辅助过程 deleteFixUp，该过程通过改变颜色和执行旋转来恢复红黑性质。
 
 ```java
@@ -277,7 +279,11 @@ void delete(int key) {
         deleteFixUp(replacer);
     }
 }
+```
 
+现在我们来看 deleteFixUp 是如何恢复红黑性质的。
+
+```java
 void deleteFixUp(Node node) {
     while (node != nil && node.color == BLACK) {
         if (node == node.parent.left) {
