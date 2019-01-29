@@ -1,6 +1,6 @@
 ## 红黑树
 
-对于一棵高度为h的普通二叉搜索树来说，它的 search、predecessor、successor、minimum、maximum、insert 和 delete 操作的时间复杂度均为 O(h)。因此，如果搜索树的高度较低时，这些集合操作会执行得比较快。然而，如果树的高度较高时，这些集合操作可能并不比在链表上执行得快。红黑树 (red black tree) 是许多平衡搜索树中的一种，可以保证在最坏情况下基本动态集合操作的时间复杂度为 O(lgn)。
+对于一棵高度为 h 的普通二叉搜索树来说，它的 search、predecessor、successor、minimum、maximum、insert 和 delete 操作的时间复杂度均为 O(h)。因此，如果搜索树的高度较低时，这些集合操作会执行得比较快。然而，如果树的高度较高时，这些集合操作可能并不比在链表上执行得快。红黑树 (red black tree) 是许多平衡搜索树中的一种，可以保证在最坏情况下基本动态集合操作的时间复杂度为 O(lgn)。
 
 ### 红黑树的性质
 
