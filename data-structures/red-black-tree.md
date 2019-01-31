@@ -306,9 +306,9 @@ void deleteFixUp(Node node) {
                     rightRotate(sibling);
                     sibling = node.parent.right;
                 }
+                sibling.right.color = BLACK;
                 sibling.color = node.parent.color;
                 node.parent.color = BLACK;
-                sibling.right.color = BLACK;
                 leftRotate(node.parent);
                 node = root;
             }
@@ -330,9 +330,9 @@ void deleteFixUp(Node node) {
                     leftRotate(sibling);
                     sibling = node.parent.left;
                 }
+                sibling.left.color = BLACK;
                 sibling.color = node.parent.color;
                 node.parent.color = BLACK;
-                sibling.left.color = BLACK;
                 rightRotate(node.parent);
                 node = root;
             }
