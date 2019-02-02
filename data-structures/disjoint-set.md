@@ -78,6 +78,9 @@ public class DisjointSet {
     void union(Node node1, Node node2) {
         Set set1 = node1.set;
         Set set2 = node2.set;
+        if (set1 == set2) {
+            return;
+        }
         if (set1.weight < set2.weight) {
             link(set1, set2);
         } else {
