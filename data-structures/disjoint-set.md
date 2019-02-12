@@ -87,7 +87,6 @@ public class DisjointSet {
             node = node.next;
         }
         dest.tail = src.tail;
-        return dest.head;
     }
 
     Node findSet(Node node) {
