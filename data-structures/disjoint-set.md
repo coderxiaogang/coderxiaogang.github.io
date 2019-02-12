@@ -51,49 +51,41 @@ public class DisjointSet {
     class Set {
         Node head;
         Node tail;
-        int weight = 0;
+        int weight;
 
-        void insert(Node node) {
-            weight++;
-            node.set = this;
-            if (head == null) {
-                head = node;
-            }
-            if (tail == null) {
-                tail = node;
-            } else {
-                tail.next = node;
-                tail = node;
-            }
+        Set() {
+            this.weight = 0;
         }
     }
 
     Node makeSet(int key) {
         Node node = new Node(key);
         Set set = new Set();
-        set.insert(node);
+        set.head = node;
+        set.tail = node;
+        node.set = set;
         return node;
     }
 
-    void union(Node node1, Node node2) {
+    Node union(Node node1, Node node2) {
         Set set1 = node1.set;
         Set set2 = node2.set;
-        if (set1 == set2) {
-            return;
-        }
         if (set1.weight < set2.weight) {
-            link(set1, set2);
+            return link(set1, set2);
         } else {
-            link(set2, set1);
+            return link(set2, set1);
         }
     }
 
-    void link(Set src, Set dest) {
+    Node link(Set src, Set dest) {
+        dest.tail.next = src.head;
         Node node = src.head;
-        while (node.next != null) {
-            dest.insert(node);
+        while (node != null) {
+            node.set = dest;
             node = node.next;
         }
+        dest.tail = src.tail;
+        return dest.head;
     }
 
     Node findSet(Node node) {
