@@ -122,39 +122,25 @@ findSet 过程中的路径压缩。箭头和根结点的自环被略去了。（
 
 ```java
 public class DisjointSetForest {
-    Node[] nodes;
-    int count;
-
-    class Node {
-        int id;
+    static class Node {
+        int key;
         Node parent;
         int rank;
 
-        Node(int id) {
-            this.id = id;
-            parent = this;
+        Node(int key) {
+            this.key = key;
             rank = 0;
         }
     }
 
-    DisjointSetForest(int n) {
-        nodes = new Node[n];
-        count = n;
-        for (int i = 0; i < n; i++) {
-            nodes[i] = new Node(i);
-        }
-    }
-
-    void union(int x, int y) {
-        link(findSet(nodes[x]), findSet(nodes[y]));
-    }
-
-    Node findSet(Node node) {
-        while (node != node.parent) {
-            node.parent = node.parent.parent;
-            node = node.parent;
-        }
+    Node makeSet(int key) {
+        Node node = new Node(key);
+        node.parent = node;
         return node;
+    }
+
+    void union(Node x, Node y) {
+        link(findSet(x), findSet(y));
     }
 
     void link(Node x, Node y) {
@@ -166,11 +152,13 @@ public class DisjointSetForest {
                 y.rank++;
             }
         }
-        count--;
     }
 
-    int getCount() {
-        return count;
+    Node findSet(Node node) {
+        if (node != node.parent) {
+            node.parent = findSet(node.parent);
+        }
+        return node.parent;
     }
 }
 ```
