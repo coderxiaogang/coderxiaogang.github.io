@@ -178,24 +178,23 @@ void insert(int key) {
 辅助的递归过程 insertNonFull 将关键字插入结点 x，要求假定在调用该过程时 x 是非满的。操作 insert 和递归操作 insertNonFull 保证了这个假设成立。
 
 ```java
-void insertNonFull(Node node, String key) {
+void insertNonFull(Node node, int key) {
     int i = node.n - 1;
     if (node.leaf) {
-        while (i >= 0 && key.compareTo(node.keys[i]) < 0) {
+        while (i >= 0 && i < node.n && key < node.keys[i]) {
             node.keys[i + 1] = node.keys[i];
             i--;
         }
-        i++;
-        node.keys[i] = key;
-        node.n = node.n + 1;
+        node.keys[i + 1] = key;
+        node.n++;
     } else {
-        while (i >= 0 && key.compareTo(node.keys[i]) < 0) {
+        while (i >= 0 && i < node.n && key < node.keys[i]) {
             i--;
         }
         i++;
         if (node.children[i].n == 2 * t - 1) {
             splitChild(node, i);
-            if (key.compareTo(node.keys[i]) > 0) {
+            if (key > node.keys[i]) {
                 i++;
             }
         }
