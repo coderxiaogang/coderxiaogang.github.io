@@ -150,25 +150,26 @@ splitChild 以直接的“剪贴”方式工作。这里 x 是被分裂的结点
 
 #### 沿树单程下行方式向 B 树插入关键字
 
-insert 利用 splitChild 来保证递归始终不会降至一个满结点上。
+在一棵高度为 h 的 B 树中，插入一个关键字所需的时间为 O(th) = O(t * log(t, n))。insert 利用 splitChild 来保证递归始终不会降至一个满结点上。
 
 ```java
-void insert(String key) {
+void insert(int key) {
     Node r = root;
     if (r.n == 2 * t - 1) {
-        Node newRoot = new Node();
-        root = newRoot;
-        newRoot.leaf = false;
-        newRoot.children[0] = r;
-        splitChild(newRoot, 0);
-        insertNonFull(newRoot, key);
+        Node node = new Node();
+        root = node;
+        node.leaf = false;
+        node.n = 0;
+        node.children[0] = r;
+        splitChild(node, 0);
+        insertNonFull(node, key);
     } else {
         insertNonFull(r, key);
     }
 }
 ```
 
-当根结点为满时，原来的根结点被分裂，一个新的结点 s（有两个孩子）称为根。对根进行分裂是增加B树高度的唯一途径，下图说明了这种情况。与二叉搜索树不同，B 树高度的增加发生在顶部而不是底部。insert 通过调用 insertNonFull 完成将关键字 key 插入以非满的根结点为根的树中。insertNonFull 在需要时沿树向下递归，在必要时通过调用 splitChild 来保证任何时刻它所递归处理的结点都是非满的。
+当根结点为满时，原来的根结点被分裂，一个新的结点 s（有两个孩子）成为根。对根进行分裂是增加B树高度的唯一途径，与二叉搜索树不同，B 树高度的增加发生在顶部而不是底部。insert 通过调用 insertNonFull 完成将关键字 key 插入以非满的根结点为根的树中。insertNonFull 在需要时沿树向下递归，在必要时通过调用 splitChild 来保证任何时刻它所递归处理的结点都是非满的。
 
 ![](../assets/images/part3/b-tree4.png)
 
