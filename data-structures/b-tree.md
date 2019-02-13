@@ -35,34 +35,24 @@ B 树以一种自然的方式推广了二叉搜索树。如果 B 树的一个内
 public class BTree {
     Node root;
     int t;
-    static final int DEFAULT_DEGREE = 2;
 
     class Node {
         int n;
         boolean leaf;
-        String[] keys;
+        int[] keys;
         Node[] children;
-        
+
         Node() {
-            n = 0;
-            leaf = true;
-            keys = new String[2 * t - 1];
+            keys = new int[2 * t - 1];
             children = new Node[2 * t];
         }
     }
-    
-    BTree() {
-        t = DEFAULT_DEGREE;
-        root = new Node();
-    }
-    
+
     BTree(int degree) {
-        if (degree < 2) {
-            t = DEFAULT_DEGREE;
-        } else {
-            t = degree;
-        }
+        t = degree;
         root = new Node();
+        root.n = 0;
+        root.leaf = true;
     }
 }
 ```
