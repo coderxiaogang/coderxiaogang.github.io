@@ -79,27 +79,29 @@ B 树上大部分的操作所需的磁盘存取次数与 B 树的高度是成正
 
 #### 搜索 B 树
 
-搜索一棵B树和搜索一棵二叉搜索树很相似，只是在每个结点所做的不是二叉或者“两路”分支选择，而是根据结点的孩子数做多路分支选择。更严格地说，对每个内部结点 x，做的是一个 x.n + 1 路的分支选择。
+搜索一棵 B 树和搜索一棵二叉搜索树很相似，只是在每个结点所做的不是二叉或者“两路”分支选择，而是根据结点的孩子数做多路分支选择。更严格地说，对每个内部结点 x，做的是一个 x.n + 1 路的分支选择。
+
+B 树的 search 是定义在二叉搜索树上的 search 的一个直接推广。它的输入是某子树的根结点 x，以及要在该子树中搜索的关键字 key，因此，顶层调用的形式为 search(root, key)。如果 key 在 B 树中，那么 search 返回的是由结点 y 和使得 y.keys[i] = key 的下标 i 组成的有序对 (y, i)，否则返回 null。 
 
 ```java
-Object[] search(Node root, String key) {
+Object[] search(Node node, int key) {
     int i = 0;
-    while (i < root.n && key.compareTo(root.keys[i]) > 0) {
+    while (i < node.n && key > node.keys[i]) {
         i++;
     }
-    if (i < root.n && key.equals(root.keys[i])) {
-        return new Object[]{root, i};
+    if (i < node.n && key == node.keys[i]) {
+        return new Object[]{node, i};
     } else {
-        if (root.leaf) {
-            return new Object[]{null, null};
+        if (node.leaf) {
+            return null;
         } else {
-            return search(root.children[i], key);
+            return search(node.children[i], key);
         }
     }
 }
 ```
 
-就像二叉搜索树的搜索过程一样，在递归过程中所遇到的结点构成了一条从树根向下的简单路径。因此，由 search 过程访问的磁盘页面数为 O(h) = O(log(t, n))，其中 h 为 B 树的高度，n 为 B 树中所含的关键字个数。由于 x.n < 2t，所以 while 循环在每个结点中花费的时间为 O(t)，总的 CPU 时间为 O(t * log(t, n))。
+就像二叉搜索树的搜索过程一样，在递归过程中所遇到的结点构成了一条从树根向下的简单路径。因此，由 search 过程访问的磁盘页面数为 O(h) = O(log(t, n))，其中 h 为 B 树的高度，n 为 B 树中所含的关键字个数。由于 x.n < 2t，所以 while 循环在每个结点中花费的时间为 O(t)，总的时间为 O(th) = O(t * log(t, n))。
 
 #### 向 B 树中插入一个关键字
 
