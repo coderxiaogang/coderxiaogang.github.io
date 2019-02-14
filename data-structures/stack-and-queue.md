@@ -215,14 +215,14 @@ public class Queue {
         return in.isEmpty() && out.isEmpty();
     }
 
-    void push(int key) {
+    void enqueue(int key) {
         if (isFull()) {
             throw new RuntimeException("overflow");
         }
         in.push(key);
     }
 
-    int pop() {
+    int dequeue() {
         if (isEmpty()) {
             throw new RuntimeException("underflow");
         } else {
@@ -239,4 +239,55 @@ public class Queue {
 
 #### 用两个队列实现一个栈
 
-而两个队列实现栈，队列轮流充当入栈和出栈的角色，而什么时候会改变角色呢，就是Pop（）操作。Pop（）操作先把一个队列中的所有元素全部出列并加入另外一个空队列中去，然后再出列（第二个队列）。
+用两个队列实现栈，队列轮流充当入栈和出栈的角色，在执行 pop 操作的时候两个队列会交换角色。push 操作只需将元素 enqueue 进队列中，运行时间为 O(1)。pop 操作需要把一个队列中的所有元素依次 dequeue 出来并 enqueue 进另一个队列中，当队列中只剩一个元素的时候，停止 dequeue，并将这个唯一的元素返回。pop 操作运行时间为 O(n)。
+
+```java
+public class P131_Stack {
+    Queue queue1;
+    Queue queue2;
+
+    Stack(int capacity) {
+        queue1 = new Queue(capacity);
+        queue2 = new Queue(capacity);
+    }
+
+    Queue active() {
+        return queue1.isEmpty() ? queue2 : queue1;
+    }
+
+    Queue inactive() {
+        return queue1.isEmpty() ? queue1 : queue2;
+    }
+
+    boolean isFull() {
+        return active().isFull();
+    }
+
+    boolean isEmpty() {
+        return active().isEmpty();
+    }
+
+    void push(int key) {
+        if (isFull()) {
+            throw new RuntimeException("overflow");
+        }
+        active().enqueue(key);
+    }
+
+    int pop() {
+        if (isEmpty()) {
+            throw new RuntimeException("underflow");
+        }
+        Queue out = active();
+        Queue in = inactive();
+        while (true) {
+            int temp = out.dequeue();
+            if (out.isEmpty()) {
+                return temp;
+            } else {
+                in.enqueue(temp);
+            }
+        }
+    }
+}
+```
