@@ -59,6 +59,55 @@ void postorderTreeWalk(Node node) {
 
 遍历一棵有 n 个结点的二叉搜索树需要耗费 Θ(n) 的时间，因为初次调用后，对于树中的每个结点这个过程恰好要自己调用两次：一次是它的左孩子，一次是它的右孩子。
 
+使用栈作为辅助数据结构，可以实现中序遍历的非递归算法。
+
+```java
+void nonRecursiveInorderTreeWalk(Node node) {
+    if (node == null) {
+        return;
+    }
+    Stack<Node> stack = new Stack<>();
+    while (node != null || !stack.isEmpty()) {
+        while (node != null) {
+            stack.push(node);
+            node = node.left;
+        }
+        node = stack.pop();
+        System.out.println(node);
+        node = node.right;
+    }
+}
+```
+
+实际上，不使用栈也能实现非递归的中序遍历。
+
+```java
+void MorrisTraversal(Node node) {
+    if (node == null) {
+        return;
+    }
+    while (node != null) {
+        if (node.left == null) {
+            System.out.println(node);
+            node = node.right;
+        } else {
+            Node prev = node.left;
+            while (prev.right != null && prev.right != node) {
+                prev = prev.right;
+            }
+            if (prev.right == null) {
+                prev.right = node;
+                node = node.left;
+            } else {
+                prev.right = null;
+                System.out.println(node);
+                node = node.right;
+            }
+        }
+    }
+}
+```
+
 ### 查询二叉搜索树
 
 我们经常需要查找一个存储在二叉搜索树中的关键字，除了 search 之外，二叉搜索树还能支持诸如 minimum, maximum, successor 和 predecessor 的查询操作。在一棵高度为 h 的二叉搜索树上，可以在 O(h) 时间内完成每个操作。
