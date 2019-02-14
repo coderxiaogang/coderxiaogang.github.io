@@ -75,15 +75,15 @@ void MorrisTraversal(Node node) {
             System.out.println(node);
             node = node.right;
         } else {
-            Node prev = node.left;
-            while (prev.right != null && prev.right != node) {
-                prev = prev.right;
+            Node pre = node.left;
+            while (pre.right != null && pre.right != node) {
+                pre = pre.right;
             }
-            if (prev.right == null) {
-                prev.right = node;
+            if (pre.right == null) {
+                pre.right = node;
                 node = node.left;
             } else {
-                prev.right = null;
+                pre.right = null;
                 System.out.println(node);
                 node = node.right;
             }
