@@ -31,8 +31,6 @@
 
 * [二叉搜索树 (Binary Search Tree)](data-structures/binary-search-tree.md)
 
-* [基数树 (Radix Tree)](data-structures/radix-tree.md)
-
 * [红黑树 (Red Black Tree)](data-structures/red-black-tree.md)
 
 * [AVL树 (AVL Tree)](data-structures/avl-tree.md)
