@@ -33,6 +33,10 @@
 
 * [红黑树 (Red Black Tree)](data-structures/red-black-tree.md)
 
+* [AVL树 (AVL Tree)](data-structures/avl-tree.md)
+
+* [随机二叉搜索树 (Treap)](data-structures/treap.md)
+
 * [B树 (B Tree)](data-structures/b-tree.md)
 
 * [不相交集合 (Disjoint Set)](data-structures/disjoint-set.md)
