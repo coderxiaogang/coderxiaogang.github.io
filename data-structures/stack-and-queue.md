@@ -195,7 +195,7 @@ public class Deque {
 
 #### 用两个栈实现一个队列
 
-用两个栈实现队列，就相当于把两个栈底靠在一起（背靠背），一个栈用来出队列（记为 out），一个栈用来进队列（记为 in）。enqueue 只需将元素 push 进 in，运行时间为 O(1)。dequeue 操作是从 out 中 pop 一个元素，当 out 不为空时，运行时间为 O(1)，而当 out 为空时，需要把 in 中的元素依次 pop 出来并 push 进 in 中，最后从 in 中 pop，此时运行时间为 O(n)。
+用两个栈实现队列，就相当于把两个栈底靠在一起（背靠背），一个栈用来出队列（记为 out），一个栈用来进队列（记为 in）。enqueue 只需将元素 push 进 in，运行时间为 O(1)。dequeue 操作是从 out 中 pop 一个元素，当 out 不为空时，运行时间为 O(1)，而当 out 为空时，需要把 in 中的元素依次 pop 出来并 push 进 out 中，最后从 out 中 pop，此时运行时间为 O(n)。
 
 ```java
 public class Queue {
@@ -219,22 +219,24 @@ public class Queue {
         if (isFull()) {
             throw new RuntimeException("overflow");
         }
-        out.push(key);
+        in.push(key);
     }
 
     int pop() {
         if (isEmpty()) {
             throw new RuntimeException("underflow");
         } else {
-            if (in.isEmpty()) {
+            if (out.isEmpty()) {
                 while (!in.isEmpty()) {
                     out.push(in.pop());
                 }
             }
-            return in.pop();
+            return out.pop();
         }
     }
 }
 ```
 
 #### 用两个队列实现一个栈
+
+而两个队列实现栈，队列轮流充当入栈和出栈的角色，而什么时候会改变角色呢，就是Pop（）操作。Pop（）操作先把一个队列中的所有元素全部出列并加入另外一个空队列中去，然后再出列（第二个队列）。
