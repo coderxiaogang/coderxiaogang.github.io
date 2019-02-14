@@ -291,3 +291,37 @@ public class Stack {
     }
 }
 ```
+
+#### 用一个单链表实现一个栈
+
+push 操作只需直接调用链表的 insert，将元素插入到链表的头部。pop 操作只需删除链表的头部元素并将其返回。push 和 pop 的运行时间都是 O(1)。
+
+```java
+public class Stack {
+    SinglyLinkedList list;
+    
+    Stack() {
+        list = new SinglyLinkedList();
+    }
+
+    boolean isEmpty() {
+        return list.head == null;
+    }
+
+    void push(int key) {
+        list.insert(key);
+    }
+
+    int pop() {
+        if (isEmpty()) {
+            throw new RuntimeException("underflow");
+        }
+        int res = list.head.key;
+        list.delete(list.head);
+        return res;
+    }
+}
+```
+
+#### 用一个单链表实现一个队列
+
