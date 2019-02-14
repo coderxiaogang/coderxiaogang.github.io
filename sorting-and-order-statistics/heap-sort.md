@@ -61,7 +61,7 @@ void maxHeapify(int[] arr, int i) {
     int l = left(i);
     int r = right(i);
     int largest = i;
-    if (l < heapSize && arr[l] > arr[i]) {
+    if (l < heapSize && arr[l] > arr[largest]) {
         largest = l;
     }
     if (r < heapSize && arr[r] > arr[largest]) {
@@ -88,7 +88,7 @@ void maxHeapify(int[] arr, int i) {
         int l = left(i);
         int r = right(i);
         int largest = i;
-        if (l < heapSize && arr[l] > arr[i]) {
+        if (l < heapSize && arr[l] > arr[largest]) {
             largest = l;
         }
         if (r < heapSize && arr[r] > arr[largest]) {
