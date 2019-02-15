@@ -76,14 +76,18 @@ void MorrisTraversal(Node node) {
             System.out.println(node);
             node = node.right;
         } else {
+            // Find the inorder predecessor of current
             Node pre = node.left;
             while (pre.right != null && pre.right != node) {
                 pre = pre.right;
             }
+
+            // Make current as right child of its inorder predecessor
             if (pre.right == null) {
                 pre.right = node;
                 node = node.left;
             } else {
+                // Revert the changes made in "if" part to restore the original tree i.e., fix the right child of predecessor
                 pre.right = null;
                 System.out.println(node);
                 node = node.right;
