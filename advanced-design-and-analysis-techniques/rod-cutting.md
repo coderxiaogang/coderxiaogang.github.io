@@ -125,12 +125,12 @@ int bottomUp(int[] p) {
     int n = p.length;
     int[] r = new int[n + 1];
     r[0] = 0;
-    for (int len = 1; len <= n; len++) {
+    for (int j = 1; j <= n; j++) {
         int max = Integer.MIN_VALUE;
-        for (int i = 1; i <= len; i++) {
-            max = Math.max(max, p[i - 1] + r[len - i]);
+        for (int i = 1; i <= j; i++) {
+            max = Math.max(max, p[i - 1] + r[j - i]);
         }
-        r[len] = max;
+        r[j] = max;
     }
     return r[n];
 }
