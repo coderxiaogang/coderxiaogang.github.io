@@ -122,6 +122,12 @@ Object[] extendedBottomUp(char[] x, char[] y) {
 }
 ```
 
+下图显示了 extendedBottomUp 对输入序列 X = <A, B, C, B, D, A, B> 和 Y = <B, D, C, A, B, A> 生成的结果。过程的运行时间为 Θ(mn)，因为每个表项的计算时间为 Θ(1)。
+
+![](../assets/images/part4/longest-common-subsequence1.png)
+
+图中第 i 行和第 j 列的方格包含了 c[i][j] 的值和 b[i][j] 记录的箭头。表项 c[7][6]（表的右下角）中的 4 即为 X 和 Y 的一个 LCS <B, C, B, A> 的长度。对所有 i, j > 0，表项 c[i][j] 仅依赖于是否 x[i] = y[j] 以及 c[i-1][j]、c[i][j-1] 和 c[i-1][j-1] 的值，这些值都会在 c[i][j] 之前计算出来。为了构造 LCS 中的元素，从右下角开始沿着 b[i][j] 的箭头前进即可，如图中阴影方格序列。阴影序列中每个“↖”对应的表项表示 x[i] = y[j] 是 LCS 的一个元素。
+
 ### 步骤 4：构造 LCS
 
 我们可以用 extendedBottomUp 返回的表 b 快速构造 X = <x[1], x[2], ..., x[m]> 和 Y = <y[1], y[2], ..., y[n]> 的 LCS，只需简单地从 b[m][n] 开始，并按箭头方向追踪下去即可。当在表项中遇到 TURN 时，意味着 x[i] = y[j] 是 LCS 的一个元素。按照这种方法，我们可以逆序依次构造出 LCS 的所有元素。
