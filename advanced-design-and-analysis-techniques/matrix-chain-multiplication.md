@@ -17,7 +17,7 @@ int[][] matrixMultiply(int[][] a, int[][] b) {
     int bRows = b.length;
     int bColumns = b[0].length;
     if (aColumns != bRows) {
-        throw new RuntimeException("incompatible dimensions");
+        throw new RuntimeException("Incompatible dimensions");
     } else {
         int[][] c = new int[aRows][bColumns];
         for (int i = 0; i < aRows; i++) {
