@@ -52,6 +52,8 @@
 
 * [最长公共子序列 (Longest Common Subsequence)](advanced-design-and-analysis-techniques/longest-common-subsequence.md).
 
+* [最优二叉搜索树 (Optimal Binary Search Tree)](advanced-design-and-analysis-techniques/optimal-binary-search-tree.md).
+
 * [贪心算法 (Greedy Algorithm)](advanced-design-and-analysis-techniques/greedy-algorithm.md).
 
 * [赫夫曼编码 (Huffman Code)](advanced-design-and-analysis-techniques/huffman-code.md).
