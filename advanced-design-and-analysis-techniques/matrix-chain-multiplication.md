@@ -165,13 +165,13 @@ public Object[] extendedBottomUp(int[] p) {
     return new Object[]{m[1][n], s};
 }
 
-void printMatrixChain(int[][] s, int i, int j) {
+void constructSolution(int[][] s, int i, int j) {
     if (i == j) {
         System.out.print("A" + i);
     } else {
         System.out.print("(");
-        printMatrixChain(s, i, s[i][j]);
-        printMatrixChain(s, s[i][j] + 1, j);
+        constructSolution(s, i, s[i][j]);
+        constructSolution(s, s[i][j] + 1, j);
         System.out.print(")");
     }
 }
