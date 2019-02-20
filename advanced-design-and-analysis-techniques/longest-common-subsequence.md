@@ -14,17 +14,15 @@
 
 定理（LCS 的最优子结构）：令 X = <x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>m</sub>> 和 Y = <y<sub>1</sub>, y<sub>2</sub>, ..., y<sub>n</sub>> 为两个序列，Z = <z<sub>1</sub>, z<sub>2</sub>, ..., z<sub>k</sub>> 为 X 和 Y 的任意 LCS。
 
-```
-1. 如果 x[m] = y[n]，则 z[k] = x[m] = y[n] 且 Z[k-1] 是 X[m-1] 和 Y[n-1] 的一个 LCS。
+1. 如果 x<sub>m</sub> = y<sub>n</sub>，则 z<sub>k</sub> = x<sub>m</sub> = y<sub>n</sub> 且 Z<sub>k-1</sub> 是 X<sub>m-1</sub> 和 Y<sub>n-1</sub> 的一个 LCS。
 
-2. 如果 x[m] != y[n]，那么 z[k] != x[m] 意味着 Z 是 X[m-1] 和 Y 的一个 LCS。
+2. 如果 x<sub>m</sub> != y<sub>n</sub>，那么 z<sub>k</sub> != x<sub>m</sub> 意味着 Z 是 X<sub>m-1</sub> 和 Y 的一个 LCS。
 
-3. 如果 x[m] != y[n]，那么 z[k] != y[n] 意味着 Z 是 X 和 Y[n-1] 的一个 LCS。
-```
+3. 如果 x<sub>m</sub> != y<sub>n</sub>，那么 z<sub>k</sub> != y<sub>n</sub> 意味着 Z 是 X 和 Y<sub>n-1</sub> 的一个 LCS。
 
-证明：（1）如果 z[k] != x[m]，那么可以将 x[m]= y[n] 追加到 Z 的末尾，得到 X 和 Y 的一个长度为 k + 1 的公共子序列，与 Z 是 X 和 Y 的最长公共子序列的假设矛盾。因此，必然有 z[k] = x[m] = y[n]。这样，前缀 Z[k-1] 是 X[m-1] 和 Y[n-1] 的一个长度为 k - 1 的公共子序列。我们希望证明它是一个 LCS。利用反证法，假设存在 X[m-1] 和 Y[n-1] 的一个长度大于 k - 1 的公共子序列 W，则将 x[m] = y[n] 追加到 W 的末尾会得到 X 和 Y 的一个长度大于 k 的公共子序列，矛盾。  
+证明：（1）如果 z<sub>k</sub> != x<sub>m</sub>，那么可以将 x<sub>m</sub>= y<sub>n</sub> 追加到 Z 的末尾，得到 X 和 Y 的一个长度为 k + 1 的公共子序列，与 Z 是 X 和 Y 的最长公共子序列的假设矛盾。因此，必然有 z<sub>k</sub> = x<sub>m</sub> = y<sub>n</sub>。这样，前缀 Z<sub>k-1</sub> 是 X<sub>m-1</sub> 和 Y<sub>n-1</sub> 的一个长度为 k - 1 的公共子序列。我们希望证明它是一个 LCS。利用反证法，假设存在 X<sub>m-1</sub> 和 Y<sub>n-1</sub> 的一个长度大于 k - 1 的公共子序列 W，则将 x<sub>m</sub> = y<sub>n</sub> 追加到 W 的末尾会得到 X 和 Y 的一个长度大于 k 的公共子序列，矛盾。  
 
-（2）如果 z[k] != x[m]，那么 Z 是 X[m-1] 和 Y 的一个公共子序列。如果存在 X[m-1] 和 Y 的一个长度大于 k 的公共子序列 W，那么 W 也是 X[m] 和 Y 的公共子序列，与 Z 是 X 和 Y 的最长公共子序列的假设矛盾。  
+（2）如果 z<sub>k</sub> != x<sub>m</sub>，那么 Z 是 X<sub>m-1</sub> 和 Y 的一个公共子序列。如果存在 X<sub>m-1</sub> 和 Y 的一个长度大于 k 的公共子序列 W，那么 W 也是 X<sub>m</sub> 和 Y 的公共子序列，与 Z 是 X 和 Y 的最长公共子序列的假设矛盾。  
 
 （3）与情况（2）对称。
 
@@ -32,15 +30,15 @@
 
 ### 步骤 2：一个递归解
 
-上述定理意味着，在求 X = <x[1], x[2], ..., x[m]> 和 Y = <y[1], y[2], ..., y[n]> 的一个 LCS 时，我们需要求解一个或两个子问题。如果 x[m] = y[n]，我们应该求解 X[m-1] 和 Y[n-1] 的一个 LCS，将 x[m] = y[n] 追加到这个 LCS 的末尾，就得到 X 和 Y 的一个 LCS。如果 x[m] != y[n]，我们必须求解两个子问题：求 X[m-1] 和 Y 的一个 LCS 与 X 和 Y[n-1] 的一个 LCS，两个 LCS 较长者即为 X 和 Y 的一个 LCS。由于这些情况覆盖了所有可能性，因此我们知道必然有一个子问题的最优解出现在 X 和 Y 的 LCS 中。
+上述定理意味着，在求 X = <x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>m</sub>> 和 Y = <y<sub>1</sub>, y<sub>2</sub>, ..., y<sub>n</sub>> 的一个 LCS 时，我们需要求解一个或两个子问题。如果 x<sub>m</sub> = y<sub>n</sub>，我们应该求解 X<sub>m-1</sub> 和 Y<sub>n-1</sub> 的一个 LCS，将 x<sub>m</sub> = y<sub>n</sub> 追加到这个 LCS 的末尾，就得到 X 和 Y 的一个 LCS。如果 x<sub>m</sub> != y<sub>n</sub>，我们必须求解两个子问题：求 X<sub>m-1</sub> 和 Y 的一个 LCS 与 X 和 Y<sub>n-1</sub> 的一个 LCS，两个 LCS 较长者即为 X 和 Y 的一个 LCS。由于这些情况覆盖了所有可能性，因此我们知道必然有一个子问题的最优解出现在 X 和 Y 的 LCS 中。
 
-我们很容易看出 LCS 问题的重叠子问题性质。为了求 X 和 Y 的一个 LCS，我们可能需要求 X 和 Y[n-1] 的一个 LCS 及 X[m-1] 和 Y 的一个 LCS。但这几个子问题都包含求解 X[m-1] 和 Y[n-1] 的 LCS 的子子问题，很多其它子问题也都共享子子问题。
+我们很容易看出 LCS 问题的重叠子问题性质。为了求 X 和 Y 的一个 LCS，我们可能需要求 X 和 Y<sub>n-1</sub> 的一个 LCS 及 X<sub>m-1</sub> 和 Y 的一个 LCS。但这几个子问题都包含求解 X<sub>m-1</sub> 和 Y<sub>n-1</sub> 的 LCS 的子子问题，很多其它子问题也都共享子子问题。
 
-设计 LCS 问题的递归算法首先要建立最优解的递归式。我们定义 c[i][j] 表示 X[i] 和 Y[j] 的 LCS 的长度，如果 i = 0 或 j = 0，即一个序列长度为 0，那么 LCS 的长度为 0。根据 LCS 问题的最优子结构性质，可得如下公式：
+设计 LCS 问题的递归算法首先要建立最优解的递归式。我们定义 c[i][j] 表示 X<sub>i</sub> 和 Y<sub>j</sub> 的 LCS 的长度，如果 i = 0 或 j = 0，即一个序列长度为 0，那么 LCS 的长度为 0。根据 LCS 问题的最优子结构性质，可得如下公式：
 
 ![](../assets/images/part4/longest-common-subsequence.png)
 
-观察到在递归公式中，我们通过限制条件限制了需要求解哪些子问题。当 x[i] = y[j] 时，我们可以而且应该求解子问题：X[i-1] 和 Y[j-1] 的一个 LCS。否则，应该求解两个子问题：X[i] 和 Y[j-1] 的一个 LCS 及 X[i-1] 和 Y 的一个 LCS。
+观察到在递归公式中，我们通过限制条件限制了需要求解哪些子问题。当 x<sub>i</sub> = y<sub>j</sub> 时，我们可以而且应该求解子问题：X<sub>i-1</sub> 和 Y<sub>j-1</sub> 的一个 LCS。否则，应该求解两个子问题：X<sub>i</sub> 和 Y<sub>j-1</sub> 的一个 LCS 及 X<sub>i-1</sub> 和 Y 的一个 LCS。
 
 ### 步骤 3：计算 LCS 的长度
 
@@ -84,7 +82,7 @@ int bottomUp(char[] x, char[] y) {
 }
 ```
 
-bottomUp 接受两个序列 X = <x[1], x[2], ..., x[m]> 和 Y = <y[1], y[2], ..., y[n]> 为输入，它将 c[i][j] 的值保存在表 c[0..m][0..n] 中，并按行主次序（row-major order）计算表项（即首先由左至右计算 c 的第一行，然后计算第二行，依此类推），c[m][n] 保存了 X 和 Y 的 LCS 长度。下面的 extendedBottomUp 过程还维护一个表 b[1..m][1..n]，用来帮助构造最优解。b[i][j] 指向的表项对应计算 c[i][j] 时所选择的子问题最优解。
+bottomUp 接受两个序列 X = <x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>m</sub>> 和 Y = <y<sub>1</sub>, y<sub>2</sub>, ..., y<sub>n</sub>> 为输入，它将 c[i][j] 的值保存在表 c[0...m][0...n] 中，并按行主次序（row-major order）计算表项（即首先由左至右计算 c 的第一行，然后计算第二行，依此类推），c[m][n] 保存了 X 和 Y 的 LCS 长度。下面的 extendedBottomUp 过程还维护一个表 b[1...m][1...n]，用来帮助构造最优解。b[i][j] 指向的表项对应计算 c[i][j] 时所选择的子问题最优解。
 
 ```java
 static final int LEFT = 1;
@@ -126,11 +124,11 @@ Object[] extendedBottomUp(char[] x, char[] y) {
 
 ![](../assets/images/part4/longest-common-subsequence1.png)
 
-图中第 i 行和第 j 列的方格包含了 c[i][j] 的值和 b[i][j] 记录的箭头。表项 c[7][6]（表的右下角）中的 4 即为 X 和 Y 的一个 LCS <B, C, B, A> 的长度。对所有 i, j > 0，表项 c[i][j] 仅依赖于是否 x[i] = y[j] 以及 c[i-1][j]、c[i][j-1] 和 c[i-1][j-1] 的值，这些值都会在 c[i][j] 之前计算出来。为了构造 LCS 中的元素，从右下角开始沿着 b[i][j] 的箭头前进即可，如图中阴影方格序列。阴影序列中每个“↖”对应的表项表示 x[i] = y[j] 是 LCS 的一个元素。
+图中第 i 行和第 j 列的方格包含了 c[i][j] 的值和 b[i][j] 记录的箭头。表项 c[7][6]（表的右下角）中的 4 即为 X 和 Y 的一个 LCS <B, C, B, A> 的长度。对所有 i, j > 0，表项 c[i][j] 仅依赖于是否 x<sub>i</sub> = y<sub>j</sub> 以及 c[i-1][j]、c[i][j-1] 和 c[i-1][j-1] 的值，这些值都会在 c[i][j] 之前计算出来。为了构造 LCS 中的元素，从右下角开始沿着 b[i][j] 的箭头前进即可，如图中阴影方格序列。阴影序列中每个“↖”对应的表项表示 x<sub>i</sub> = y<sub>j</sub> 是 LCS 的一个元素。
 
 ### 步骤 4：构造 LCS
 
-我们可以用 extendedBottomUp 返回的表 b 快速构造 X = <x[1], x[2], ..., x[m]> 和 Y = <y[1], y[2], ..., y[n]> 的 LCS，只需简单地从 b[m][n] 开始，并按箭头方向追踪下去即可。当在表项 b[i][j] 中遇到一个“↖”时，意味着 x[i] = y[j] 是 LCS 的一个元素。按照这种方法，我们可以按逆序依次构造出 LCS 的所有元素。
+我们可以用 extendedBottomUp 返回的表 b 快速构造 X = <x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>m</sub>> 和 Y = <y<sub>1</sub>, y<sub>2</sub>, ..., y<sub>n</sub>> 的 LCS，只需简单地从 b[m][n] 开始，并按箭头方向追踪下去即可。当在表项 b[i][j] 中遇到一个“↖”时，意味着 x<sub>i</sub> = y<sub>j</sub> 是 LCS 的一个元素。按照这种方法，我们可以按逆序依次构造出 LCS 的所有元素。
 
 ```java
 void constructSolution(int[][] b, char[] x, int i, int j) {
