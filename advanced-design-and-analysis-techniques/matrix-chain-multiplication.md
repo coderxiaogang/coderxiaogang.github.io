@@ -18,18 +18,17 @@ int[][] matrixMultiply(int[][] a, int[][] b) {
     int bColumns = b[0].length;
     if (aColumns != bRows) {
         throw new RuntimeException("Incompatible dimensions");
-    } else {
-        int[][] c = new int[aRows][bColumns];
-        for (int i = 0; i < aRows; i++) {
-            for (int j = 0; j < bColumns; j++) {
-                c[i][j] = 0;
-                for (int k = 0; k < aColumns; k++) {
-                    c[i][j] += a[i][k] + b[k][j];
-                }
+    }
+    int[][] c = new int[aRows][bColumns];
+    for (int i = 0; i < aRows; i++) {
+        for (int j = 0; j < bColumns; j++) {
+            c[i][j] = 0;
+            for (int k = 0; k < aColumns; k++) {
+                c[i][j] += a[i][k] + b[k][j];
             }
         }
-        return c;
     }
+    return c;
 }
 ```
 
