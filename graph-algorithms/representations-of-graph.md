@@ -9,15 +9,9 @@
 ```java
 public class Vertex {
     int id;
-    String label;
     
     Vertex(int id) {
         this.id = id;
-    }
-
-    Vertex(int id, String label) {
-        this.id = id;
-        this.label = label;
     }
 }
 
@@ -61,17 +55,6 @@ public class Graph {
         }
     }
     
-    Graph(int V, String[] labels) {
-        this.V = V;
-        E = 0;
-        vertices = new Vertex[V];
-        adj = new LinkedList[V];
-        for (int i = 0; i < V; i++) {
-            vertices[i] = new Vertex(i, labels[i]);
-            adj[i] = new LinkedList<>();
-        }
-    }
-    
     void addEdge(int startId, int endId) {
         Edge e = new Edge(startId, endId);
         adj[startId].add(e);
@@ -97,7 +80,6 @@ public class Digraph {
     int V;
     int E;
     Vertex[] vertices;
-    String[] labels;
     LinkedList<Edge>[] adj;
     
     Digraph(int V) {
@@ -107,18 +89,6 @@ public class Digraph {
         adj = new LinkedList[V];
         for (int i = 0; i < V; i++) {
             vertices[i] = new Vertex(i);
-            adj[i] = new LinkedList<>();
-        }
-    }
-    
-    Digraph(int V, String[] labels) {
-        this.V = V;
-        E = 0;
-        vertices = new Vertex[V];
-        this.labels = labels;
-        adj = new LinkedList[V];
-        for (int i = 0; i < V; i++) {
-            vertices[i] = new Vertex(i, labels[i]);
             adj[i] = new LinkedList<>();
         }
     }
