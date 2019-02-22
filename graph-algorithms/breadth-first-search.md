@@ -87,7 +87,7 @@ BFS 在无向图上的运行过程。添加了阴影的边是被 BFS 发现的�
 
 ### 广度优先树
 
-过程 BFS 在对图进行搜索的过程中将创建一棵广度优先树，该棵树对应的是 pre 属性。更形式化地说，对于图 G = (V, E) 和源结点 s，我们定义图 G 的前驱子图为 G<sub>pre</sub> = (V<sub>pre</sub>, E<sub>pre</sub>)，其中 V<sub>pre</sub> = {v ∈ V: v.pre != null} ∪ {s}，E<sub>pre</sub> = {(v.pre, v): v ∈ V<sub>pre</sub> - {s}}。
+过程 BFS 在对图进行搜索的过程中将创建一棵广度优先树，该棵树对应的是 pre 属性。更形式化地说，对于图 G = (V, E) 和源结点 s，我们定义图 G 的前驱子图为 G<sub>pre</sub> = (V<sub>pre</sub>, E<sub>pre</sub>)，其中 V<sub>pre</sub> = {v ∈ V : v.pre != null} ∪ {s}，E<sub>pre</sub> = {(v.pre, v) : v ∈ V<sub>pre</sub> - {s}}。
 
 如果 V<sub>pre</sub> 由源结点 s 可以到达的结点组成，并且对于所有的 v ∈ V<sub>pre</sub>，子图 G<sub>pre</sub> 包含一条从源结点 s 到结点 v 的唯一简单路径，且该路径也是图 G 里面从源结点 s 到结点 v 之间的一条最短路径，则前驱子图 G<sub>pre</sub> 是一棵广度优先树。广度优先树实际上就是一棵树，因为它是连通的，并且 E<sub>pre</sub> = V<sub>pre</sub> - 1。我们称 E<sub>pre</sub> 中的边为树边。
 
