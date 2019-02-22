@@ -117,6 +117,31 @@ public class Digraph {
 
 ![](../assets/images/graph-algorithms/graph3.png)
 
+```java
+public class MatrixGraph {
+    int V;
+    int[][] weight;
+
+    MatrixGraph(int V) {
+        this.V = V;
+        weight = new int[V][V];
+        for (int i = 0; i < V; i++) {
+            for (int j = 0; j < V; j++) {
+                if (i == j) {
+                    weight[i][j] = 0;
+                } else {
+                    weight[i][j] = Integer.MAX_VALUE;
+                }
+            }
+        }
+    }
+
+    void addEdge(int startId, int endId, int weight) {
+        this.weight[startId][endId] = weight;
+    }
+}
+```
+
 不管一个图有多少条边，邻接矩阵的空间需求皆为 Θ(V<sup>2</sup>)。
 
 从上图中可以看到，无向图的邻接矩阵是一个对称矩阵。由于在无向图中，边 (u, v) 和边 (v, u) 是同一条边，无向图的邻接矩阵 A 就是自己的转置，即 A = A<sup>T</sup>。在某些应用中，可能只需要存放对角线及其以上的这部分邻接矩阵（即半个矩阵），从而将图存储空间需求减少几乎一半。
