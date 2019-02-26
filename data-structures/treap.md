@@ -12,18 +12,103 @@
 
 这两个性质的结合就是这种树被称为 treap 树的原因：它同时具有二叉搜索树和堆的特征。
 
-![](../assets/images/part3/treap1.png)
+```java
+public class Treap {
+    Node root;
+    
+    class Node {
+        int key;
+        int priority;
+        Node left;
+        Node right;
 
-一棵 treap 树，每个结点 x 都用 x.key : x.priority 来标记，例如，根结点的关键字是 G，优先级为 4。 
+        Node(int key) {
+            this.key = key;
+            this.priority = Util.randomInt(0, 100);
+        }
+    }
+}
+```
 
-用以下方式考虑 treap 树是会有帮助的。假设将已有相应关键字的结点 x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>n</sub> 插入到一棵 treap 树内，得到的 treap 树是通过将这些结点以它们的优先级（随机选取的）顺序插入一棵正常的二叉搜索树形成的，即 x<sub>i</sub>.priority < x<sub>j</sub>.priority 表示 x<sub>i</sub> 在 x<sub>j</sub> 之前被插入。
+### 搜索
 
-给定一个已有相应关键字和优先级（互异）的结点 x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>n</sub> 组成的集合，存在唯一的一棵 treap 树与这些结点相关联。
+Treap 的搜索和普通二叉搜索树的搜索方式完全一样，下面是一个递归实现：
 
-treap 树的期望高度是 Θ(lgn)，因此在 treap 内查找一个值所花的时间为 Θ(lgn)。要将一个新的结点插入到一个已存在的 treap 树中，要做的第一件事就是将一个随机的优先级赋予这个新结点，然后调用 insert，其操作如下图所示。
+```java
+Node search(int key) {
+        return search(root, key);
+    }
 
-![](../assets/images/part3/treap2.png)
+Node search(Node node, int key) {
+    // Base Cases: root is null or key is present at root
+    if (node == null || key == node.key) {
+        return node;
+    }
 
-insert 操作。(a) 在插入之前的原 treap 树。(b) 插入一个关键字为 C、优先级为 25 的结点之后的 treap 树。(c) ~ (d) 插入一个关键字为 D、优先级为 9 的结点时的中间阶段。(e) 在 (c) 和 (d) 的插入完成后的 treap 树。(f) 在插入一个关键字为 F、优先级为 2 的结点后的 treap 树。
+    if (key < node.key) {
+        return search(node.left, key);
+    } else {
+        return search(node.right, key);
+    }
+}
+```
 
-insert 首先执行通常的二叉搜索树插入过程，然后做旋转来恢复最小堆的性质，期望运行时间是 Θ(lgn)。
+由于树高是 O(lgn)，因此搜索的时间复杂度也是 O(lgn)。
+
+### 插入
+
+首先以普通二叉搜索树的方式插入一个新结点，这个结点被赋予了一个随机的 priority 值，所以最大堆性质可能会被破坏，因此需要调整树的结构以维持最大堆性质。树的结构调节是通过旋转来实现的：
+
+![](../assets/images/part3/red-black-tree3.png)
+
+```java
+Node rightRotate(Node p) {
+    Node l = p.left;
+    p.left = l.right;
+    l.right = p;
+    return l;
+}
+
+Node leftRotate(Node p) {
+    Node r = p.right;
+    p.right = r.left;
+    r.left = p;
+    return r;
+}
+```
+
+先将新结点插入到树中，然后我们沿着树根方向回溯，遍历每个祖先结点。如果新结点在左子树上并且当前祖先结点的左孩子 priority 更大，执行右旋；如果新结点在右子树上并且当前祖先结点的右孩子 priority 更大，执行左旋。以下是插入的递归实现：
+
+```java
+void insert(int key) {
+    root = insert(root, key);
+}
+
+Node insert(Node node, int key) {
+    // If root is null, create a new node and return it
+    if (node == null) {
+        return new Node(key);
+    }
+
+    if (key < node.key) {
+        node.left = insert(node.left, key);
+
+        // Fix heap property if it is violated
+        if (node.left.priority > node.priority) {
+            node = rightRotate(node);
+        }
+    } else {
+        node.right = insert(node.right, key);
+
+        // Fix heap property if it is violated
+        if (node.right.priority > node.priority) {
+            node = leftRotate(node);
+        }
+    }
+
+    return node;
+}
+```
+
+### 删除
+
