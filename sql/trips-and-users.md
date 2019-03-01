@@ -49,5 +49,5 @@ Write a SQL query to find the cancellation rate of requests made by unbanned use
 ```
 
 ```sql
-select * from user;
+select * from dual;
 ```
