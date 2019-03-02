@@ -8,7 +8,7 @@ AVL 树是一种高度平衡的（height balanced）二叉搜索树：对每一�
 
 下图不是一棵合法的 AVL 树，因为对结点 12 和 8 来说，它们的左右子树高度差都超过了 1。
 
-![](../assets/images/part2/avl-tree2.jpg)
+![](../assets/images/part2/avl-tree2.png)
 
 大多数的搜索树操作，例如 search, insert, delete 等，花费的时间是 O(h)，其中 h 是树的高度。对于一棵倾斜的树来说，其高度较高，h 达到了 O(n)。如果我们保证在每次插入和删除等操作之后，树高 h 能保持在 O(lgn)，那么我们就能保证这些搜索树操作时间复杂度为  O(lgn)，其中 n 是树中结点的数量。
 
