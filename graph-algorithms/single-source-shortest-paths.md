@@ -86,12 +86,20 @@ void initializeSingleSource(Digraph digraph, Vertex root) {
 }
 ```
 
-在初始化操作结束后，对于所有的结点 v ∈ V，我们有 v.pre = null, s.d = 0，对于所有的结点 v ∈ V - {s}，我们有 v.d = ∞。
+在初始化操作结束后，对于所有的结点 v ∈ V，我们有 v.pre = null，s.d = 0，对于所有的结点 v ∈ V - {s}，我们有 v.d = ∞。
 
 对一条边 (u, v) 的松弛过程为：首先测试一下是否可以对从 s 到 v 的最短路径进行改善，测试的方法是，将从结点 s 到结点 u 之间的最短路径距离加上结点 u 与 v 之间的边权重，并与当前的 s 到 v 的最短路径估计进行比较，如果前者更小，则对 v.d 和 v.pre 进行更新。松弛步骤可能降低最短路径的估计值 v.d 并更新 v 的前驱属性 v.pre。下面的代码执行的就是对边 (u, v) 在 O(1) 时间内进行的松弛操作。
 
 ```java
-
+void relax(Digraph digraph, Edge e) {
+    Vertex u = digraph.vertices[e.either()];
+    Vertex v = digraph.vertices[e.other(u.id)];
+    int weight = e.weight;
+    if (v.d > u.d + weight) {
+        v.d = u.d + weight;
+        v.pre = u;
+    }
+}
 ```
 
 下图描述的是对一条边进行松弛的两个例子。在其中一个例子中，最短路径估计因松弛操作而减少了，在另一个例子中，最短路径估计则没有发生变化。
