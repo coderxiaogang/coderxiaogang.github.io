@@ -31,7 +31,32 @@ Kruskal 算法找到安全边的办法是，在所有连接森林中两棵不同
 我们使用一个不相交结合数据结构来维护几个互不相交的元素集合，每个集合代表当前森林中的一棵树，findSet(u) 用来返回包含元素 u 的集合的代表元素，我们可以通过测试 findSet(u) 是否等于 findSet(v) 来判断结点 u 和结点 v 是否属于同一棵树。Kruskal 算法使用 union 过程来对两棵树进行合并。
 
 ```java
+class KruskalMinimumSpanningTree {
+    Edge[] mst;
+    double weight;
 
+    KruskalMinimumSpanningTree(Graph graph) {
+        int V = graph.V;
+        mst = new Edge[V - 1];
+        weight = 0;
+        int N = 0;
+        UnionFind unionFind = new UnionFind(V);
+        PriorityQueue<Edge> priorityQueue = new PriorityQueue<>();
+        for (Edge e : graph.allEdges()) {
+            priorityQueue.add(e);
+        }
+        while (!priorityQueue.isEmpty() && N < V - 1) {
+            Edge e = priorityQueue.remove();
+            Vertex u = graph.vertices[e.either()];
+            Vertex v = graph.vertices[e.other(u.id)];
+            if (!unionFind.connected(u.id, v.id)) {
+                mst[N++] = e;
+                weight += e.weight;
+                unionFind.union(u.id, v.id);
+            }
+        }
+    }
+}
 ```
 
 下图描述的是 Kruskal 算法的工作过程。算法的第 1 ~ 3 行将集合 A 初始化为一个空集合，并创建 ∣V∣ 棵树，每棵树仅包含一个结点。算法第 5 ~ 8 行的 for 循环按照权重从低到高的次序对每条边逐一进行检查。对每条边 (u, v) 来说，该循环将检查端点 u 和端点 v 是否属于同一棵树，如果是，该边不能加入到森林（否则将形成环路），如果不是，则两个端点分别属于不同的树，算法第 7 行将把这条边加入到集合 A 中。最后将两棵树中的结点进行合并。
@@ -54,7 +79,41 @@ Kruskal 算法找到安全边的办法是，在所有连接森林中两棵不同
 为了有效地实现 Prim 算法，需要一种快速的方法来选择一条新的边，以便加入到由集合 A 中的边所构成的树里。在下面的代码中，连通图 G 和最小生成树的根结点 r 将作为算法的输入。在算法的执行过程中，所有不在树 A 中的结点都存放在一个基于 key 属性的最小优先队列 Q 中。对每个结点 v，属性 v.key 保存的是连接 v 和树中结点的所有边中最小边的权重。我们约定，如果不存在这样的边，则 v.key = ∞。属性 v.pre 给出的是结点 v 在树中的父结点。Prim 算法将 genericMST 中的集合 A 维持在 A = {(v, v.pre) : v ∈ V - {r} - Q} 的状态下。
 
 ```java
+class PrimMinimumSpanningTree {
+    Edge[] mst;
+    double weight;
 
+    PrimMinimumSpanningTree(Graph graph) {
+        int V = graph.V;
+        mst = new Edge[V - 1];
+        weight = 0;
+        for (Vertex u : graph.vertices) {
+            u.key = Integer.MAX_VALUE;
+        }
+        graph.vertices[0].key = 0;
+        PriorityQueue<Vertex> priorityQueue = new PriorityQueue<>();
+        for (Vertex u : graph.vertices) {
+            priorityQueue.add(u);
+        }
+        while (!priorityQueue.isEmpty()) {
+            Vertex u = priorityQueue.remove();
+            for (Edge e : graph.adj[u.id]) {
+                Vertex v = graph.vertices[e.other(u.id)];
+                if (priorityQueue.contains(v) && e.weight < v.key) {
+                    v.parent = u;
+                    v.key = e.weight;
+                    priorityQueue.remove(v);
+                    priorityQueue.add(v);
+                }
+            }
+        }
+        for (int i = 1; i < V; i++) {
+            Vertex u = graph.vertices[i];
+            mst[i - 1] = new Edge(u.parent.id, u.id, u.key);
+            weight += u.key;
+        }
+    }
+}
 ```
 
 Prim 算法的运行时间取决于最小队列 Q 的实现方式。如果将 Q 实现为一个二叉最小优先队列，我们可以使用 buildMinHeap 来执行算法的第 1 ~ 5 行，时间成本为 O(V)。while 循环中的语句一共要执行 ∣V∣ 次，由于每个 extractMin 操作需要的时间成本为 O(lgV)，extractMin 操作的总时间为 O(V lgV)。由于所有邻接链表的长度之和为 2∣E∣，算法第 8 ~ 11 行的 for 循环的总执行次数为 O(E)。在 for 循环里面，我们可以在常数时间内完成对一个结点是否属于队列 Q 的判断，方法就是对每个结点维护一个标志位来指明该结点是否属于 Q，并在将结点从 Q 删除的时候对该标志位进行更新。算法第 11 行的赋值操作设计一个隐含的 decreaseKey 操作，该操作在二叉最小堆上执行的时间成本为 O(lgV)。因此，Prim 算法的总时间代价为 O(V lgV + E lgV) = O(E lgV)。从渐进意义上来说，它与 Kruskal 算法的运行时间相同。
