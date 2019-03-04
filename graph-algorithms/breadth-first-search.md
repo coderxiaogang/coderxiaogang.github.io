@@ -101,7 +101,7 @@ void printPath(Graph graph, int srcId, int destId) {
         System.out.print(src + " ");
     } else {
         if (dest.pre == null) {
-            System.out.print("no path from " + src + " to " + dest + " exists");
+            System.out.print("No path from " + src + " to " + dest + " exists");
         } else {
             printPath(graph, srcId, dest.pre.id);
             System.out.print(dest + " ");
