@@ -26,9 +26,9 @@ w(p) = ∑<sub>i=1</sub><sup>k</sup>w(v<sub>i-1</sub>, v<sub>i</sub>)
 
 最短路径算法通常依赖最短路径的一个重要性质：两个结点之间的一条最短路径包含着其它的最短路径（Edmonds-Karp 最大流算法也依赖于这个性质）。最优子结构是可以使用动态规划和贪心算法的一个重要指标。Dijkstra 算法就是一个贪心算法，而 Floyd-Warshall 算法则是一个动态规划算法，该算法能够找出所有结点对之间的最短路径。下面的引理精确地叙述了最短路径的最优子结构性质。
 
-引理（最短路径的子路径也是最短路径）：给定带权重的有向图 G =(V, E) 和权重函数 w: E -> R。设 p = <v<sub>0</sub>, v<sub>1</sub>, ..., v<sub>k</sub>> 为结点 v<sub>0</sub> 到结点 v<sub>k</sub> 的一条最短路径，并且对于任意的 i 和 j，0 <= i <= j <= k，设 p<sub>ij</sub> = <v<sub>i</sub>, v<sub>i+1</sub>, ..., <sub>j</sub>> 为路径 p 中从结点 v<sub>i</sub> 到结点 v<sub>j</sub> 的子路径，那么 p<sub>ij</sub> 是从结点 v<sub>i</sub> 到结点 v<sub>j</sub> 的一条最短路径。
+引理（最短路径的子路径也是最短路径）：给定带权重的有向图 G =(V, E) 和权重函数 w: E -> R。设 p = <v<sub>0</sub>, v<sub>1</sub>, ..., v<sub>k</sub>> 为从结点 v<sub>0</sub> 到结点 v<sub>k</sub> 的一条最短路径，并且对于任意的 i 和 j，0 <= i <= j <= k，设 p<sub>ij</sub> = <v<sub>i</sub>, v<sub>i+1</sub>, ..., v<sub>j</sub>> 为路径 p 中从结点 v<sub>i</sub> 到结点 v<sub>j</sub> 的子路径，那么 p<sub>ij</sub> 是从结点 v<sub>i</sub> 到结点 v<sub>j</sub> 的一条最短路径。
 
-证明：如果将路径 p 分解为 v<sub>0</sub> --p<sub>0i</sub>--> v<sub>i</sub> --p<sub>ij</sub>--> v<sub>j</sub> --p<sub>jk</sub>--> v<sub>k</sub>，则有 w(p) = w(p<sub>0i</sub>) + w(p<sub>ij</sub>) + w(p<sub>jk</sub>)。现在，假设存在一条从 v<sub>i</sub> 到 v<sub>j</sub> 的路径 p<sub>ij</sub>'，且 w(p<sub>ij</sub>') < w(p<sub>ij</sub>)，则 v<sub>0</sub> --p<sub>0i</sub>--> v<sub>i</sub> --p<sub>ij</sub>'--> v<sub>j</sub> --p<sub>jk</sub>--> v<sub>k</sub> 是一条从结点 v<sub>0</sub> 到结点 v<sub>k</sub> 的权重为 w(p<sub>0i</sub>) + w(p<sub>ij</sub>') + w(p<sub>jk</sub>) 的路径，而该权重小于 w(p)。这与 p 是从 v<sub>0</sub> 到 v<sub>k</sub> 的一条最短路径这一假设矛盾。
+证明：如果将路径 p 分解为 v<sub>0</sub> ~~ p<sub>0i</sub> ~~> v<sub>i</sub> ~~ p<sub>ij</sub> ~~> v<sub>j</sub> ~~ p<sub>jk</sub> ~~> v<sub>k</sub>，则有 w(p) = w(p<sub>0i</sub>) + w(p<sub>ij</sub>) + w(p<sub>jk</sub>)。现在，假设存在一条从 v<sub>i</sub> 到 v<sub>j</sub> 的路径 p<sub>ij</sub>'，且 w(p<sub>ij</sub>') < w(p<sub>ij</sub>)，则 v<sub>0</sub> ~~ p<sub>0i</sub> ~~> v<sub>i</sub> ~~ p<sub>ij</sub>' ~~> v<sub>j</sub> ~~ p<sub>jk</sub> ~~> v<sub>k</sub> 是一条从结点 v<sub>0</sub> 到结点 v<sub>k</sub> 的权重为 w(p<sub>0i</sub>) + w(p<sub>ij</sub>') + w(p<sub>jk</sub>) 的路径，而该权重小于 w(p)。这与 p 是从 v<sub>0</sub> 到 v<sub>k</sub> 的一条最短路径这一假设矛盾。
 
 #### 负权重的边
 
