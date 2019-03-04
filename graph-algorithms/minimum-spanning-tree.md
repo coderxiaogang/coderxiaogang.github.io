@@ -105,7 +105,7 @@ class PrimMinimumSpanningTree {
             for (Edge e : graph.adj[u.id]) {
                 Vertex v = graph.vertices[e.other(u.id)];
                 if (minPriorityQueue.contains(v) && e.weight < v.key) {
-                    v.parent = u;
+                    v.pre = u;
                     v.key = e.weight;
                     minPriorityQueue.remove(v);
                     minPriorityQueue.add(v);
@@ -114,7 +114,7 @@ class PrimMinimumSpanningTree {
         }
         for (int i = 1; i < V; i++) {
             Vertex u = graph.vertices[i];
-            mst[i - 1] = new Edge(u.parent.id, u.id, u.key);
+            mst[i - 1] = new Edge(u.pre.id, u.id, u.key);
             weight += u.key;
         }
     }
