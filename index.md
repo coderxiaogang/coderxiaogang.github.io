@@ -68,7 +68,3 @@
 * [最小生成树 (Minimum Spanning Tree)](graph-algorithms/minimum-spanning-tree.md).
 
 * [单源最短路径 (Single-Source Shortest Paths)](graph-algorithms/single-source-shortest-paths.md).
-
-* [所有节点对的最短路径 (All-Pairs Shortest Paths)](graph-algorithms/all-pairs-shortest-paths.md).
-
-* [最大流 (Maximum Flow)](graph-algorithms/maximum-flow.md).
