@@ -34,13 +34,18 @@ Kruskal 算法找到安全边的办法是，在所有连接森林中两棵不同
 class KruskalMinimumSpanningTree {
     Edge[] mst;
     double weight;
+    DisjointSetForest.Node[] nodes;
 
     KruskalMinimumSpanningTree(Graph graph) {
         int V = graph.V;
         mst = new Edge[V - 1];
         weight = 0;
         int N = 0;
-        UnionFind unionFind = new UnionFind(V);
+        DisjointSetForest disjointSetForest = new DisjointSetForest();
+        nodes = new DisjointSetForest.Node[V];
+        for (int i = 0; i < V; i++) {
+            nodes[i] = disjointSetForest.makeSet(i);
+        }
         PriorityQueue<Edge> priorityQueue = new PriorityQueue<>();
         for (Edge e : graph.allEdges()) {
             priorityQueue.add(e);
@@ -49,10 +54,10 @@ class KruskalMinimumSpanningTree {
             Edge e = priorityQueue.remove();
             Vertex u = graph.vertices[e.either()];
             Vertex v = graph.vertices[e.other(u.id)];
-            if (!unionFind.connected(u.id, v.id)) {
+            if (disjointSetForest.findSet(nodes[u.id]) != disjointSetForest.findSet(nodes[v.id])) {
                 mst[N++] = e;
                 weight += e.weight;
-                unionFind.union(u.id, v.id);
+                disjointSetForest.union(nodes[u.id], nodes[v.id]);
             }
         }
     }
