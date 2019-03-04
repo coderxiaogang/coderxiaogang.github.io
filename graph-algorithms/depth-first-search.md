@@ -176,9 +176,9 @@ class StronglyConnectedComponents {
         count = 0;
         stack = new Stack<>();
         for (int i = 0; i < V; i++) {
-            Vertex u = digraph.vertices[i];
-            u.visited = false;
+            digraph.vertices[i].visited = false;
         }
+
         for (int i = 0; i < V; i++) {
             Vertex u = digraph.vertices[i];
             if (!u.visited) {
@@ -188,8 +188,7 @@ class StronglyConnectedComponents {
 
         Digraph tDigraph = digraph.transpose();
         for (int i = 0; i < V; i++) {
-            Vertex u = digraph.vertices[i];
-            u.visited = false;
+            digraph.vertices[i].visited = false;
         }
         while (!stack.isEmpty()) {
             Vertex u = tDigraph.vertices[stack.pop().id];
