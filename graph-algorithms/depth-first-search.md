@@ -172,7 +172,7 @@ class StronglyConnectedComponents {
     Digraph resultDigraph;
 
     StronglyConnectedComponents(Digraph digraph) {
-        int V = digraph.getV();
+        int V = digraph.V;
         count = 0;
         stack = new Stack<>();
         for (int i = 0; i < V; i++) {
