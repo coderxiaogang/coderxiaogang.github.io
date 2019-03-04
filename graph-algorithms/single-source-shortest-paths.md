@@ -192,12 +192,46 @@ void dagShortestPaths(Digraph digraph, int rootId) {
 
 ### Dijkstra 算法
 
-Dijkstra 算法解决的事带权重的有向图上单源最短路径问题，该算法要求所有边的权重都为非负值。因此，我们假定对于所有的边 (u, v) ∈ E，都有 w(u, v) >= 0。我们稍后将看到，如果所采用的实现方式合适，Dijkstra 算法的运行时间要低于 Bellman-Ford 算法的运行时间。
+Dijkstra 算法解决的是带权重的有向图上单源最短路径问题，该算法要求所有边的权重都为非负值。因此，我们假定对于所有的边 (u, v) ∈ E，都有 w(u, v) >= 0。我们稍后将看到，如果所采用的实现方式合适，Dijkstra 算法的运行时间要低于 Bellman-Ford 算法的运行时间。
 
-Dijkstra 算法在运行过程中维持的关键信息是一组结点集合 S。从源结点 s 到该集合中每个结点之间的最短路径已经被找到。算法重复从结点集 V - S 中选择最短路径估计最小的结点 u，将 u 加入到集合 S，然后对所有从 u 出发的边进行松弛。在下面的实现中，我们使用一个最小优先队列 Q 来保存结点集合，每个结点的关键值为其 d 值。
+Dijkstra 算法在运行过程中维持的关键信息是一组结点集合 S。从源结点 s 到该集合中每个结点之间的最短路径已经被找到。算法重复从结点集 V - S 中选择最短路径估计最小的结点 u，将 u 加入到集合 S，然后对所有从 u 发出的边进行松弛。在下面的实现中，我们使用一个最小优先队列 Q 来保存结点集合，每个结点的关键值为其 d 值。
 
 ```java
+class Dijkstra {
+    PriorityQueue<Vertex> minPriorityQueue;
 
+    void dijkstra(Digraph digraph, int rootId) {
+        Vertex root = digraph.vertices[rootId];
+        initializeSingleSource(digraph, root);
+        Set<Vertex> settledVertexSet = new HashSet<>();
+        minPriorityQueue = new PriorityQueue<>();
+        for (Vertex u : digraph.vertices) {
+            minPriorityQueue.add(u);
+        }
+        while (!minPriorityQueue.isEmpty()) {
+            Vertex u = minPriorityQueue.remove();
+            settledVertexSet.add(u);
+            for (Edge e : digraph.adj[u.id]) {
+                Vertex v = digraph.vertices[e.other(u.id)];
+                if (!settledVertexSet.contains(v)) {
+                    relax(digraph, e);
+                }
+            }
+        }
+    }
+
+    void relax(Digraph digraph, Edge e) {
+        Vertex u = digraph.vertices[e.either()];
+        Vertex v = digraph.vertices[e.other(u.id)];
+        int weight = e.weight;
+        if (v.d > u.d + weight) {
+            v.d = u.d + weight;
+            minPriorityQueue.remove(v);
+            minPriorityQueue.add(v);
+            v.pre = u;
+        }
+    }
+}
 ```
 
 Dijkstra 算法对边的松弛操作如下图所示。算法第 1 行执行的是例行的 d 值和 pre 值的初始化，第 2 行将集合 S 初始化为一个空集。算法所维持的不变式为 Q = V - S，该不变式在算法第 4 ~ 8 行的 while 循环中保持不变。算法第 3 行对最小优先队列 Q 进行初始化，将所有的结点 V 都放在该队列里。由于此时的 S  = ∅，不变式在第 3 行执行完毕后成立。算法在每次执行第 4 ~ 8 行的 while 循环时，第 5 行从 Q = V - S 集合中抽取结点 u，第 6 行将该结点加入到集合 S 里从而继续保持不变式成立（注意，在第一次执行该循环时，u = s）。结点 u 是集合 V - S 中所有结点的最小最短路径估计。然后，在算法的第 7 ~ 8 行，我们队所有从结点 u 发出的边 (u, v) 进行松弛操作。如果一条经过结点 u 的路径能够使得源结点 s 到结点 v 的最短路径权重比当前的估计值更小，则我们对 v.d 的值和前驱 v.pre 的值执行更新。注意，在算法的第 3 行后，我们再不会在队列 Q 中插入任何结点，而每个结点从 Q 中被抽取的次数和加入集合 S 的次数均为一次。因此，算法第 4 ~ 8 行的 while 循环的执行次数刚好为 ∣V∣ 次。
