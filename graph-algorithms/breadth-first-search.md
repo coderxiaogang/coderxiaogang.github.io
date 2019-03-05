@@ -27,24 +27,6 @@ class Vertex {
     int d;
 }
 
-class Edge {
-    // Other fields and methods ...
-
-    int either() {
-        return startId;
-    }
-
-    int other(int vertexId) {
-        if (vertexId == startId) {
-            return endId;
-        } else if (vertexId == endId) {
-            return startId;
-        } else {
-            throw new RuntimeException("No such vertex in this edge");
-        }
-    }
-}
-
 void BFS(Graph graph, int rootId) {
     int V = graph.V;
     for (int i = 0; i < V; i++) {
