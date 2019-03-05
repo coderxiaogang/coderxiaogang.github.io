@@ -21,9 +21,6 @@ public class RedBlackTree {
         Node left;
         Node right;
         boolean color;
-        
-        Node() {
-        }
 
         Node(int key) {
             this.key = key;
@@ -31,7 +28,7 @@ public class RedBlackTree {
     }
     
     RedBlackTree() {
-        nil = new Node();
+        nil = new Node(-1);
         nil.color = BLACK;
         root = nil;
     }

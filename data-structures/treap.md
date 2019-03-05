@@ -14,6 +14,8 @@
 
 ![](../assets/images/part2/treap1.png)
 
+一棵 treap 树。每个结点 x 都用 x.key : x.priority 来标记，例如，根结点的关键字是 G，优先级是 4。
+
 ```java
 class Treap {
     Node root;
