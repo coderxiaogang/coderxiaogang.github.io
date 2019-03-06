@@ -166,18 +166,16 @@ class Digraph {
 ```java
 class KosarajuStronglyConnectedComponents {
     LinkedList<Vertex>[] components;
-    int count;
-    Stack<Vertex> stack;
+    int count = 0;
+    Stack<Vertex> stack = new Stack<>();
     Digraph resultDigraph;
 
     void stronglyConnectedComponents(Digraph digraph) {
         int V = digraph.V;
-        count = 0;
-        stack = new Stack<>();
+
         for (int i = 0; i < V; i++) {
             digraph.vertices[i].visited = false;
         }
-
         for (int i = 0; i < V; i++) {
             Vertex u = digraph.vertices[i];
             if (!u.visited) {
@@ -187,7 +185,7 @@ class KosarajuStronglyConnectedComponents {
 
         Digraph tDigraph = digraph.transpose();
         for (int i = 0; i < V; i++) {
-            digraph.vertices[i].visited = false;
+            tDigraph.vertices[i].visited = false;
         }
         while (!stack.isEmpty()) {
             Vertex u = tDigraph.vertices[stack.pop().id];
