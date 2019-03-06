@@ -24,7 +24,7 @@ class Vertex {
 下面的代码给出的是基本的深度优先搜索算法，输入图 G 既可以是无向图，也可以是有向图，变量 time 是一个全局变量，用来计算时间戳。
 
 ```java
-int time;
+int time = 0;
 
 void dfs(Graph graph) {
     int V = graph.V;
@@ -33,7 +33,6 @@ void dfs(Graph graph) {
         u.visited = false;
         u.pre = null;
     }
-    time = 0;
     for (int i = 0; i < V; i++) {
         Vertex u = graph.vertices[i];
         if (!u.visited) {
