@@ -111,6 +111,10 @@ void dfs(Digraph digraph) {
     int V = digraph.V;
     for (int i = 0; i < V; i++) {
         Vertex u = digraph.vertices[i];
+        u.visited = false;
+    }
+    for (int i = 0; i < V; i++) {
+        Vertex u = digraph.vertices[i];
         if (!u.visited) {
             visit(digraph, u);
         }
