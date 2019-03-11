@@ -75,17 +75,15 @@ void bfs(Graph graph, int rootId) {
 下面的代码将打印出从源结点 s 到结点 v 的一条最短路径上的所有结点，这里假定 bfs 已经计算出一棵广度优先树。
 
 ```java
-void printPath(Graph graph, int srcId, int destId) {
-    Vertex src = graph.vertices[srcId];
-    Vertex dest = graph.vertices[destId];
-    if (srcId == destId) {
-        System.out.print(src + " ");
+void printPath(Vertex src, Vertex dest) {
+    if (src == dest) {
+        System.out.println(src + " ");
     } else {
         if (dest.pre == null) {
-            System.out.print("No path from " + src + " to " + dest + " exists");
+            System.out.println("No path from " + src + " to " + dest + " exists");
         } else {
-            printPath(graph, srcId, dest.pre.id);
-            System.out.print(dest + " ");
+            printPath(src, dest.pre);
+            System.out.println(dest + " ");
         }
     }
 }
