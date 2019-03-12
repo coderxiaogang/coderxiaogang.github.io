@@ -104,7 +104,7 @@ Prim 算法的工作原理与 Dijkstra 的最短路径算法相似。Prim 算法
 ```java
 class PrimMinimumSpanningTree {
     Edge[] mst;
-
+    
     void minimumSpanningTree(Graph graph) {
         int V = graph.V;
         mst = new Edge[V - 1];
@@ -112,19 +112,17 @@ class PrimMinimumSpanningTree {
             u.key = Integer.MAX_VALUE;
         }
         graph.vertices[0].key = 0;
-        PriorityQueue<Vertex> minPriorityQueue = new PriorityQueue<>();
+        MinPriorityQueue Q = new MinPriorityQueue();
         for (Vertex u : graph.vertices) {
-            minPriorityQueue.add(u);
+            Q.insert(u);
         }
-        while (!minPriorityQueue.isEmpty()) {
-            Vertex u = minPriorityQueue.remove();
+        while (!Q.isEmpty()) {
+            Vertex u = Q.extractMin();
             for (Edge e : graph.adj[u.id]) {
                 Vertex v = graph.vertices[e.other(u.id)];
-                if (minPriorityQueue.contains(v) && e.weight < v.key) {
+                if (Q.contains(v) && e.weight < v.key) {
                     v.pre = u;
-                    v.key = e.weight;
-                    minPriorityQueue.remove(v);
-                    minPriorityQueue.add(v);
+                    Q.decreaseKey(v, e.weight);
                 }
             }
         }
