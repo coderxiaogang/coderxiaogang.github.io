@@ -129,7 +129,7 @@ void visit(Digraph digraph, Vertex u) {
             visit(digraph, v);
         }
     }
-    vertices.addFirst(0, u);
+    vertices.addFirst(u);
 }
 ```
 
