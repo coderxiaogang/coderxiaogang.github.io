@@ -129,7 +129,7 @@ void visit(Digraph digraph, Vertex u) {
             visit(digraph, v);
         }
     }
-    vertices.add(0, u);
+    vertices.addFirst(0, u);
 }
 ```
 
@@ -204,7 +204,7 @@ class KosarajuStronglyConnectedComponents {
         }
         for (int i = 0; i < V; i++) {
             Vertex u = tDigraph.vertices[i];
-            components[u.componentId].add(u);
+            components[u.componentId].addFirst(u);
         }
     }
 
