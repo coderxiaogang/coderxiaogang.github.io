@@ -173,8 +173,7 @@ void dagShortestPaths(Digraph digraph, int srcId) {
     LinkedList<Vertex> sortedVertices = topologicalSort(digraph);
     Vertex src = digraph.vertices[srcId];
     initializeSingleSource(digraph, src);
-    for (Vertex sortedVertex : sortedVertices) {
-        Vertex u = digraph.vertices[sortedVertex.id];
+    for (Vertex u : sortedVertices) {
         for (Edge e : digraph.adj[u.id]) {
             relax(digraph, e);
         }
