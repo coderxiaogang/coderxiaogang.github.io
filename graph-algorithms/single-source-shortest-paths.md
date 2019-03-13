@@ -77,12 +77,12 @@ E<sub>pre</sub> = {(v.pre, v) ∈ E : v ∈ V<sub>pre</sub> - {s}}
 对每个结点 v 来说，我们维持一个属性 v.d，用来记录从源结点 s 到结点 v 的最短路径权重的上界。我们称 v.d 为 s 到 v 的最短路径估计。我们用下面运行时间为 Θ(V) 的算法来对最短路径估计和前驱结点进行初始化：
 
 ```java
-void initializeSingleSource(Digraph digraph, Vertex root) {
+void initializeSingleSource(Digraph digraph, Vertex src) {
     for (Vertex u : digraph.vertices) {
         u.d = Integer.MAX_VALUE;
         u.pre = null;
     }
-    root.d = 0;
+    src.d = 0;
 }
 ```
 
@@ -133,9 +133,9 @@ Bellman-Ford 算法解决的是一般情况下的单源最短路径问题，在�
 Bellman-Ford 算法通过对边进行松弛操作来渐近地降低从源结点 s 到每个结点 v 的最短路径的估计值 v.d，直到该估计值与实际的最短路径权重 δ(s, v) 相同时为止。该算法返回 true 值当且仅当输入图不包含可以从源结点到达的权重为负值的环路。因为权重为负值的环路可以无限制的降低总花费，所以如果发现第 ∣V∣ - 1 次松弛操作后仍可降低花销（松弛），就一定存在权重为负值的环路。
 
 ```java
-boolean bellmanFord(Digraph digraph, int rootId) {
-    Vertex root = digraph.vertices[rootId];
-    initializeSingleSource(digraph, root);
+boolean bellmanFord(Digraph digraph, int srcId) {
+    Vertex src = digraph.vertices[srcId];
+    initializeSingleSource(digraph, src);
     int V = digraph.V;
     for (int i = 0; i < V - 1; i++) {
         for (Edge e : digraph.allEdges()) {
@@ -169,10 +169,10 @@ Bellman-Ford 算法的执行过程。源结点为 s，结点中的数值为该�
 我们的算法首先对有向无环图进行拓扑排序，以便确定结点之间的一个线性次序。如果有向无环图包含从结点 u 到结点 v 的一条路径，则 u 在拓扑排序的次序中位于结点 v 的前面。我们只需要按照拓扑排序的次序对结点进行一遍处理即可。每次对一个结点进行处理时，我们对从该结点发出的所有的边进行松弛操作。
 
 ```java
-void dagShortestPaths(Digraph digraph, int rootId) {
+void dagShortestPaths(Digraph digraph, int srcId) {
     LinkedList<Vertex> sortedVertices = topologicalSort(digraph);
-    Vertex root = digraph.vertices[rootId];
-    initializeSingleSource(digraph, root);
+    Vertex src = digraph.vertices[srcId];
+    initializeSingleSource(digraph, src);
     for (Vertex sortedVertex : sortedVertices) {
         Vertex u = digraph.vertices[sortedVertex.id];
         for (Edge e : digraph.adj[u.id]) {
