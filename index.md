@@ -1,4 +1,4 @@
-### 排序和查找
+### 排序
 
 * [插入排序 (Insertion Sort)](sorting-and-order-statistics/insertion-sort.md)
 
@@ -42,7 +42,7 @@
 * [不相交集合 (Disjoint Set)](data-structures/disjoint-set.md)
 
 
-### 动态规划和贪心算法
+### 动态规划
 
 * [动态规划 (Dynamic Programming)](advanced-design-and-analysis-techniques/dynamic-programming.md).
 
@@ -57,7 +57,7 @@
 * [赫夫曼编码 (Huffman Code)](advanced-design-and-analysis-techniques/huffman-code.md).
 
 
-### 图算法
+### 图论
 
 * [图的表示 (Representations of Graph)](graph-algorithms/representations-of-graph.md).
 
