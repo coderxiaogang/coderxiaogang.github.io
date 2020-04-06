@@ -15,9 +15,9 @@
 
 用程序实现如下：
 
-```java
-void insertionSort(int[] arr) {
-    for (int j = 1; j < arr.length; j++) {
+```c
+void InsertionSort(int *arr, int len) {
+    for (int j = 1; j < len; j++) {
         int key = arr[j];
         int i = j - 1;
         while (i >= 0 && arr[i] > key) {
@@ -45,10 +45,10 @@ void insertionSort(int[] arr) {
 
 还可以把插入排序表示为如下的一个递归过程：为了排序数组的前 n 项，我们递归地排序前 n - 1 项，然后把第 n 项插入已排序的前 n - 1 个元素中。
 
-```java
-void recursiveInsertionSort(int[] arr, int j) {
+```c
+void RecursiveInsertionSort(int *arr, int j) {
     if (j >= 1) {
-        recursiveInsertionSort(arr, j - 1);
+        RecursiveInsertionSort(arr, j - 1);
         int key = arr[j];
         int i = j - 1;
         while (i >= 0 && arr[i] > key) {
@@ -64,25 +64,12 @@ void recursiveInsertionSort(int[] arr, int j) {
 
 在插入排序中寻找一个元素合适的插入位置时，我们可以用二分查找法来减少比较的次数。在普通的插入排序中，第 i 次需要 O(i) 的时间才能找到一个元素合适的插入位置，使用二分查找法，可以将查找时间减少为 O(lgi)。但二分插入排序只能减小运行时间的常数系数，不能减小渐近运行时间，整个插入排序的时间复杂度仍然为 O(n<sup>2</sup>)，因为第 i 次找到合适的位置，需要移动的元素个数没有改变，移动的时间复杂度仍然为 O(i)。
 
-```java
-void binaryInsertionSort(int[] arr) {
-    for (int j = 1; j < arr.length; j++) {
-        int key = arr[j];
-        int pos = Math.abs(binarySearch(arr, 0, j, key) + 1);
-        int i = j - 1;
-        while (i >= pos) {
-            arr[i + 1] = arr[i];
-            i--;
-        }
-        arr[i + 1] = key;
-    }
-}
-
-int binarySearch(int[] arr, int low, int high, int key) {
+```c
+int binarySearch(int *arr, int low, int high, int key) {
     while (low <= high) {
         int mid = (low + high) / 2;
         if (key == arr[mid]) {
-            return mid;
+            return arr[mid];
         } else if (key < arr[mid]) {
             high = mid - 1;
         } else {
@@ -90,6 +77,19 @@ int binarySearch(int[] arr, int low, int high, int key) {
         }
     }
     return -(low + 1);
+}
+
+void BinaryInsertionSort(int *arr, int len) {
+    for (int j = 0; j < len; j++) {
+        int key = arr[j];
+        int i = j - 1;
+        int location = abs(binarySearch(arr, 0, j, key) + 1);
+        while (i >= location) {
+            arr[i + 1] = arr[i];
+            i--;
+        }
+        arr[i + 1] = key;
+    }
 }
 ```
 
@@ -143,11 +143,10 @@ int binarySearch(int[] arr, int low, int high, int key) {
 
 最后以 1 为步长进行排序，此时就是简单的插入排序了。
 
-```java
-void shellSort(int[] arr) {
-    int n = arr.length;
-    for (int gap = n / 2; gap > 0; gap /= 2) {
-        for (int j = gap; j < n; j++) {
+```c
+void ShellSort(int *arr, int len) {
+    for (int gap = len / 2; gap > 0; gap /= 2) {
+        for (int j = gap; j < len; j++) {
             int key = arr[j];
             int i = j - gap;
             while (i >= 0 && arr[i] > key) {
