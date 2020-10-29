@@ -15,16 +15,17 @@
 
 用程序实现如下：
 
-```c
-void InsertionSort(int *arr, int len) {
-    for (int j = 1; j < len; j++) {
-        int key = arr[j];
-        int i = j - 1;
-        while (i >= 0 && arr[i] > key) {
-            arr[i + 1] = arr[i];
-            i--;
-        }
-        arr[i + 1] = key;
+```c++
+void InsertionSort(std::vector<int>& nums) {
+    int n = nums.size();
+    for (int j = 1; j < n; ++j) {
+      int key = nums[j];
+      int i = j - 1;
+      while (i >= 0 && nums[i] > key) {
+        nums[i + 1] = nums[i];
+        i--;
+      }
+      nums[i + 1] = key;
     }
 }
 ```
