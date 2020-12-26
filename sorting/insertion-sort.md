@@ -46,19 +46,19 @@ void InsertionSort(std::vector<int>& nums) {
 
 还可以把插入排序表示为如下的一个递归过程：为了排序数组的前 n 项，我们递归地排序前 n - 1 项，然后把第 n 项插入已排序的前 n - 1 个元素中。
 
-```c
-void RecursiveInsertionSort(int *arr, int j) {
+```c++
+  void RecursiveInsertionSort(std::vector<int>& nums, int j) {
     if (j >= 1) {
-        RecursiveInsertionSort(arr, j - 1);
-        int key = arr[j];
-        int i = j - 1;
-        while (i >= 0 && arr[i] > key) {
-            arr[i + 1] = arr[i];
-            i--;
-        }
-        arr[i + 1] = key;
+      RecursiveInsertionSort(nums, j - 1);
+      int key = nums[j];
+      int i = j - 1;
+      while (i >= 0 && nums[i] > key) {
+        nums[i + 1] = nums[i];
+        i--;
+      }
+      nums[i + 1] = key;
     }
-}
+  }
 ```
 
 ### 二分插入排序
