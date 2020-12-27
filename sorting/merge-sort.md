@@ -41,10 +41,10 @@ merge 需要 Θ(n) 的时间，其中 n = r - p + 1，即待合并元素的总�
     int n2 = r - q;
     std::vector<int> left(n1);
     std::vector<int> right(n2);
-    for (int i = 0; i < n1; i++) {
+    for (int i = 0; i < n1; ++i) {
       left[i] = nums[p + i];
     }
-    for (int i = 0; i < n2; i++) {
+    for (int i = 0; i < n2; ++i) {
       right[i] = nums[q + 1 + i];
     }
     int i = 0, j = 0, k = p;
