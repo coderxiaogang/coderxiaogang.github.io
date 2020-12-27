@@ -20,75 +20,75 @@
 
 当待排序的序列长度为 1 时，递归开始回升，在这种情况下不要做任何工作，因为长度为 1 的每个序列都已排好序。
 
-归并排序算法的关键操作是合并两个已排序的子序列。我们通过调用一个辅助过程 merge 来完成合并，该过程假设子数组 arr[p...q] 和 arr[q+1...r] 都已排好序，它合并这两个子数组行成单一的已排好序的子数组 arr[p...r]。
+归并排序算法的关键操作是合并两个已排序的子序列。我们通过调用一个辅助过程 merge 来完成合并，该过程假设子数组 nums[p...q] 和 nums[q+1...r] 都已排好序，它合并这两个子数组行成单一的已排好序的子数组 nums[p...r]。
 
 merge 需要 Θ(n) 的时间，其中 n = r - p + 1，即待合并元素的总个数。是它按以下方式工作。假设桌子上有两堆牌，每堆都已排好序，最小的牌在顶上，我们希望把这两堆牌合并成单一的排好序的输出堆。我们每次从两堆牌顶中选择较小的一张，将该牌从其堆中移开（该堆的顶上将露出一张新牌）并将该牌放置到输出堆。重复这个步骤，直到一个输入堆为空，这时，我们只是拿起剩余的输入堆并牌面朝下地将该堆放置到输出堆。因为我们只是比较顶上的两张牌，所以计算上每个基本步骤需要常量时间。因为我们最多执行 n 个基本步骤，所以合并需要 Θ(n) 的时间。
 
 为了避免在每个基本步骤中检查是否有堆为空，在每个堆的底部放置一张哨兵牌，它包含一个特殊值 ∞ ，每当显示一张值为 ∞ 的牌，它不可能为较小的牌，除非两个堆都已显露其哨兵牌。但是，一旦发生这种情况，所有非哨兵牌都已被放置到输出堆。因为我们事先知道刚好 r - p + 1 张牌将被放置到输出堆，所以一旦已执行 r - p + 1 个基本步骤，算法就可以停止。
 
-```java
-void mergeSort(int[] arr, int p, int r) {
+```c++
+  void MergeSort(std::vector<int>& nums, int p, int r) {
     if (p < r) {
-        int q = (p + r) / 2;
-        mergeSort(arr, p, q);
-        mergeSort(arr, q + 1, r);
-        merge(arr, p, q, r);
+      int q = (p + r) / 2;
+      MergeSort(nums, p, q);
+      MergeSort(nums, q + 1, r);
+      Merge(nums, p, q, r);
     }
-}
+  }
 
-void merge(int[] arr, int p, int q, int r) {
+  void Merge(std::vector<int>& nums, int p, int q, int r) {
     int n1 = q - p + 1;
     int n2 = r - q;
-    int[] left = new int[n1 + 1];
-    int[] right = new int[n2 + 1];
+    std::vector<int> left(n1);
+    std::vector<int> right(n2);
     for (int i = 0; i < n1; i++) {
-        left[i] = arr[p + i];
-    }
-    left[n1] = Integer.MAX_VALUE;
-    for (int i = 0; i < n2; i++) {
-        right[i] = arr[q + 1 + i];
-    }
-    right[n2] = Integer.MAX_VALUE;
-    int i = 0, j = 0;
-    for (int k = p; k <= r; k++) {
-        if (left[i] <= right[j]) {
-            arr[k] = left[i++];
-        } else {
-            arr[k] = right[j++];
-        }
-    }
-}
-```
-
-在合并步骤中，如果不使用哨兵，那么一旦数组 left 或 right 中所有元素均被复制到数组 arr，就立刻停止，然后把另一个数组的剩余部分复制到 arr。
-
-```java
-void merge(int[] arr, int p, int r) {
-    int n1 = q - p + 1;
-    int n2 = r - q;
-    int[] left = new int[n1];
-    int[] right = new int[n2];
-    for (int i = 0; i < n1; i++) {
-        left[i] = arr[p + i];
+      left[i] = nums[p + i];
     }
     for (int i = 0; i < n2; i++) {
-        right[i] = arr[q + 1 + i];
+      right[i] = nums[q + 1 + i];
     }
     int i = 0, j = 0, k = p;
     while (i < n1 && j < n2) {
-        if (left[i] <= right[j]) {
-            arr[k++] = left[i++];
-        } else {
-            arr[k++] = right[j++];
-        }
+      if (left[i] <= right[j]) {
+        nums[k++] = left[i++];
+      } else {
+        nums[k++] = right[j++];
+      }
     }
     while (i < n1) {
-        arr[k++] = left[i++];
+      nums[k++] = left[i++];
     }
     while (j < n2) {
-        arr[k++] = right[j++];
+      nums[k++] = right[j++];
     }
-}
+  }
+```
+
+在合并步骤中，如果不使用哨兵，那么一旦数组 left 或 right 中所有元素均被复制到数组 nums，就立刻停止，然后把另一个数组的剩余部分复制到 nums。
+
+```c++
+  void Merge(std::vector<int>& nums, int p, int q, int r) {
+    int n1 = q - p + 1;
+    int n2 = r - q;
+    std::vector<int> left(n1 + 1);
+    std::vector<int> right(n2 + 1);
+    for (int i = 0; i < n1; ++i) {
+      left[i] = nums[p + i];
+    }
+    left[n1] = INT_MAX;
+    for (int i = 0; i < n2; ++i) {
+      right[i] = nums[q + 1 + i];
+    }
+    right[n2] = INT_MAX;
+    int i = 0, j = 0;
+    for (int k = p; k <= r; ++k) {
+      if (left[i] <= right[j]) {
+        nums[k] = left[i++];
+      } else {
+        nums[k] = right[j++];
+      }
+    }
+  }
 ```
 
 为了分析归并排序的运行时间，我们假设 n 刚好是 2 的幂，把归并排序的运行情况表示为如下的递归树。递归的顶层代价是 cn，其中 c 是一个常系数，根的两棵子树是两个较小的递归式，每个节点引起的代价都是 cn / 2，我们将其分解成一棵递归树，直到问题规模下降到 1，每个问题只要代价 c。
